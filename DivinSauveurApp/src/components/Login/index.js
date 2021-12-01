@@ -1,0 +1,95 @@
+import React from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import CustomButton from '../../components/common/CustomButton';
+import Container from '../../components/common/Container'
+import Input from '../../components/common/Input';
+import styles from './styles';
+
+import { CALENDAR, REGISTER } from '../../constants/routeNames';
+import Message from '../common/Message';
+
+
+const LoginComponent = ({
+  error,
+  form,
+  justSignedUp,
+  onChange,
+  loading,
+  onSubmit,
+}) => {
+  const { navigate } = useNavigation();
+
+  return (
+    <Container>
+      <Image
+        height={70}
+        width={70}
+        source={require('../../assets/images/Logo.png')}
+        style={styles.logoImage}
+      />
+
+      <View>
+        <Text style={styles.title}>Bienvenue sur l'application de la 10ième unité Divin Sauveur !</Text>
+
+        <View style={styles.form}>
+          {justSignedUp && (
+            <Message
+              onDismiss={() => { }}
+              success
+              message="Compte créé"
+            />
+          )}
+          {error && !error.error && (
+            <Message
+              onDismiss={() => { }}
+              danger
+              message="Une erreur est survenue.. Réessayez"
+            />
+          )}
+
+          {error?.error && <Message danger onDismiss message={error?.error} />}
+
+          <Input
+            placeholder="Mail"
+            icon={<Text>logo</Text>}
+            iconPosition="right"
+            value={form.MailUtilisateur || null}
+            onChangeText={(value) => {
+              onChange({ name: 'MailUtilisateur', value });
+            }}
+          />
+
+          <Input
+            placeholder="Password"
+            secureTextEntry={true}
+            icon={<Text>logo</Text>}
+            iconPosition="right"
+            onChangeText={(value) => {
+              onChange({ name: 'MDPUtilisateur', value });
+            }}
+          />
+
+          <CustomButton
+            disabled={loading}
+            onPress={onSubmit}
+            loading={loading}
+            primary 
+            title="Connexion" 
+          />
+
+          <View>
+            <TouchableOpacity onPress={() => navigate(REGISTER)}>
+              <Text style={styles.createAccount}>
+                Se créer un compte
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Container>
+  );
+}
+
+export default LoginComponent;

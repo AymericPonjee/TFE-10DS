@@ -1,0 +1,89 @@
+Table User {
+  IdUser integer PK
+  NomUser varchar(25)
+  PrenomUser varchar(25)
+  TotemUser varchar(25)
+  QualiUser varchar(25)
+  MailUser varchar(50)
+  PasswordUser varchar(30)
+}
+
+Table Chef {
+  IdChef integer PK
+  TotemChef varchar(25)
+  QualiChef varchar(25)
+  FormationChef bool
+  DescriptionChef varchar(255)
+  RoleChef varchar(50)
+  IdUser integer
+}
+
+Table Camp {
+  IdCamp int PK
+  LieuCamp varchar(50)
+  MailContact varchar(50)
+  NumTelContact integer
+  Commentaire varchar(255)
+  InfoBois varchar(255)
+}
+
+Table Produit {
+  IdProduit int PK
+  LibelleProduit varchar(50)
+  prixProduit decimal
+}
+
+Table Event {
+  IdEvent int PK
+  NomEvent varchar(50)
+  DateDebutEvent date
+  DateFinEvent date
+  LieuEvent varchar(50)
+}
+
+Table Commande {
+  IdCommande int PK
+  TotalCommande decimal
+  IdProduit varchar(50)
+}
+
+Table Anime {
+  IdAnime integer PK
+  NomAnime varchar(25)
+  PrenomAnime varchar(25)
+  DateNaissAnime date
+  sectionAnime varchar(25)
+  AbsenceAnime int
+  MaladieAnime varchar(255)
+  CommentaireAnime varchar(225)
+  SexeAnime boolean
+}
+
+Table UserAnime {
+  IdUser integer PK
+  IdAnime integer PK
+}
+
+Table UserCommande {
+  IdUser integer PK
+  IdCommande integer PK
+}
+
+Table AnimeEvent {
+  IdAnime integer PK
+  IdEvent integer PK
+  AbsenceAnimeEvent boolean
+}
+
+Ref: User.IdUser > Chef.IdUser
+Ref: User.IdUser > UserAnime.IdUser
+Ref: User.IdUser > UserCommande.IdUser
+
+Ref: Produit.IdProduit > Commande.IdProduit
+
+Ref: Commande.IdCommande > UserCommande.IdCommande
+
+Ref: Event.IdEvent > AnimeEvent.IdEvent
+
+Ref: Anime.IdAnime > AnimeEvent.IdAnime
+Ref: Anime.IdAnime > UserAnime.IdAnime
