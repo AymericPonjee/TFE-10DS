@@ -13,22 +13,26 @@ export const clearAuthState = () => (dispatch) => {
 };
 
 export default ({
-  NomUtilisateur: nom_utilisateur,
-  PrenomUtilisateur: prenom_utilisateur,
-  TotemUtilisateur,
-  QualiUtilisateur,
-  MailUtilisateur: mail_utilisateur
+  NomUtilisateur: NomUtilisateur,
+  PrenomUtilisateur: PrenomUtilisateur,
+  TotemUtilisateur: TotemUtilisateur,
+  QualiUtilisateur: QualiUtilisateur,
+  MailUtilisateur: MailUtilisateur,
+  MDPUtilisateur: MDPUtilisateur,
+  IsChef: IsChef
 }) => (dispatch) => (onSuccess) => {
   dispatch({
     type: REGISTER_LOADING,
   });
   axiosInstance
-    .post('http://localhost:8888/TFE-10DS/DivinSaveurSite/API/Inscription.php', {
-      nom_utilisateur,
-      prenom_utilisateur,
+    .post('/Inscription.php', {
+      NomUtilisateur,
+      PrenomUtilisateur,
       TotemUtilisateur,
       QualiUtilisateur,
-      mail_utilisateur
+      MailUtilisateur,
+      MDPUtilisateur,
+      IsChef
     })
     .then((res) => {
       dispatch({

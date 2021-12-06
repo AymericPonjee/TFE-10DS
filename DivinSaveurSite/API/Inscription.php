@@ -26,14 +26,14 @@
             values ('$NomUtilisateur','$PrenomUtilisateur','$TotemUtilisateur', '$QualiUtilisateur', '$MailUtilisateur', '$MDPUtilisateur', '$IsChef')";
    
         if(mysqli_query($con,$Sql_Query)) {
-            $MSG = true ;//success
+            $MSG = true;//success
             $json = json_encode($MSG);
-            echo $json ;
+            echo $json;
         }
         else{ 
             $error = 0;//Try again
             $json = json_encode($error);
-            echo $json ;
+            echo $json;
         }
     }
     mysqli_close($con);
