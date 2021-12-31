@@ -42,19 +42,20 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    if (!form.NomUtilisateur) {
+    console.log(form)
+    if (!form.name) {
       setErrors((prev) => {
-        return { ...prev, NomUtilisateur: 'Veuillez entrer un nom'};
+        return { ...prev, name: 'Veuillez entrer un nom'};
       });
     }
-    if (!form.PrenomUtilisateur) {
+    if (!form.firstname) {
       setErrors((prev) => {
-        return { ...prev, PrenomUtilisateur: 'Veuillez entrer un prénom'};
+        return { ...prev, firstname: 'Veuillez entrer un prénom'};
       });
     }
-    if (!form.MailUtilisateur) {
+    if (!form.mail) {
       setErrors((prev) => {
-        return { ...prev, MailUtilisateur: 'Veuillez entrer un mail'};
+        return { ...prev, mail: 'Veuillez entrer un mail'};
       });
     }
     if (

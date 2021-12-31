@@ -5,30 +5,32 @@ import {
   LOGIN_SUCCESS
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInstance';
+import { storeData } from '../../../utils/storage';
 
-export default ({ MDPUtilisateur, MailUtilisateur: mail_utilisateur }) => (dispatch) => {
-  dispatch({
-    type: LOGIN_LOADING,
-  });
-  axiosInstance
-    .post('http://localhost:8888/TFE-10DS/DivinSaveurSite/API/Login.php', {
-      MDPUtilisateur,
-      mail_utilisateur,
-    })
-    .then((res) => {
-      AsyncStorage.setItem('token', res.data.token);
-      AsyncStorage.setItem('user', JSON.stringify(res.data.user));
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response
-          ? err.response.data
-          : { error: 'Erreur. Veuillez recommencez' },
-      });
+export default ({password: password, mail: mail}) =>
+  dispatch => {
+    dispatch({
+      type: LOGIN_LOADING,
     });
-};
+    axiosInstance
+      .post('/Users/login', {
+        password,
+        mail,
+      })
+      .then(res => {
+        storeData('token', res.data.token);
+        storeData('user', res.data.user);
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: error.response
+            ? error.response.data
+            : {error: 'Erreur.. Veuillez recommencez'},
+        });
+      });
+  };

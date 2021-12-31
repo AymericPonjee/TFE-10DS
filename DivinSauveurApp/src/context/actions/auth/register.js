@@ -13,41 +13,41 @@ export const clearAuthState = () => (dispatch) => {
 };
 
 export default ({
-  NomUtilisateur: NomUtilisateur,
-  PrenomUtilisateur: PrenomUtilisateur,
-  TotemUtilisateur: TotemUtilisateur,
-  QualiUtilisateur: QualiUtilisateur,
-  MailUtilisateur: MailUtilisateur,
-  MDPUtilisateur: MDPUtilisateur,
-  IsChef: IsChef
-}) => (dispatch) => (onSuccess) => {
-  dispatch({
-    type: REGISTER_LOADING,
-  });
-  axiosInstance
-    .post('/Inscription.php', {
-      NomUtilisateur,
-      PrenomUtilisateur,
-      TotemUtilisateur,
-      QualiUtilisateur,
-      MailUtilisateur,
-      MDPUtilisateur,
-      IsChef
-    })
-    .then((res) => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data,
-      });
-
-      onSuccess(res.data);
-    })
-    .catch((err) => {
-      dispatch({
-        type: REGISTER_FAIL,
-        payload: err.response
-          ? err.response.data
-          : { error: 'Une erreur est survenue.. Réessayez' }
-      });
+    name: name,
+    firstname: firstname,
+    totem: totem,
+    quali: quali,
+    mail: mail,
+    password: password,
+  }) =>
+  dispatch =>
+  onSuccess => {
+    dispatch({
+      type: REGISTER_LOADING,
     });
+    axiosInstance
+      .post('/Users/signup', {
+        name,
+        firstname,
+        totem,
+        quali,
+        mail,
+        password,
+      })
+      .then(res => {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data,
+        });
+
+        onSuccess(res.data);
+      })
+      .catch(err => {
+        dispatch({
+          type: REGISTER_FAIL,
+          payload: err.response
+            ? err.response.data
+            : {error: 'Une erreur est survenue.. Réessayez'},
+        });
+      });
   };

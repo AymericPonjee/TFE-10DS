@@ -41,9 +41,9 @@ const RegisterComponent = ({
             icon={<Text>logo</Text>}
             iconPosition="right"
             onChangeText={(value) => {
-              onChange({ name: 'NomUtilisateur', value });
+              onChange({ name: 'name', value });
             }}
-            error={errors.NomUtilisateur || error?.nom_utilisateur?.[0]}
+            error={errors.name || error?.nom_utilisateur?.[0]}
           />
 
           <Input
@@ -51,9 +51,9 @@ const RegisterComponent = ({
             icon={<Text>logo</Text>}
             iconPosition="right"
             onChangeText={(value) => {
-              onChange({ name: 'PrenomUtilisateur', value });
+              onChange({ name: 'firstname', value });
             }}
-            error={errors.PrenomUtilisateur || error?.prenom_utilisateur?.[0]}
+            error={errors.firstname || error?.prenom_utilisateur?.[0]}
           />
 
           <Input
@@ -61,7 +61,7 @@ const RegisterComponent = ({
             icon={<Text>logo</Text>}
             iconPosition="right"
             onChangeText={(value) => {
-              onChange({ name: 'TotemUtilisateur', value });
+              onChange({ name: 'totem', value });
             }}
           /> 
 
@@ -70,7 +70,7 @@ const RegisterComponent = ({
             icon={<Text>logo</Text>}
             iconPosition="right"
             onChangeText={(value) => {
-              onChange({ name: 'QualiUtilisateur', value });
+              onChange({ name: 'quali', value });
             }}
           />
 
@@ -79,9 +79,9 @@ const RegisterComponent = ({
             icon={<Text>logo</Text>}
             iconPosition="right"
             onChangeText={(value) => {
-              onChange({ name: 'MailUtilisateur', value });
+              onChange({ name: 'mail', value });
             }}
-            error={errors.MailUtilisateur || error?.mail_utilisateur?.[0]}
+            error={errors.mail || error?.mail_utilisateur?.[0]}
           />
 
           <CustomButton 

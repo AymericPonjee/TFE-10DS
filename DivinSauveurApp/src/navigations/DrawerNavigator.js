@@ -1,29 +1,25 @@
 import React from 'react';
-
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { GlobalContext } from '../context/Provider';
-
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeNavigator from './HomeNavigator';
+import {HOME_NAVIGATOR} from '../constants/routeNames';
 import SideMenu from './SideMenu';
-
-import { HOME_NAVIGATOR } from '../constants/routeNames';
+import {GlobalContext} from '../context/Provider';
 
 const getDrawerContent = (navigation, authDispatch) => {
   return <SideMenu navigation={navigation} authDispatch={authDispatch} />;
 };
-
-const DrawNavigator = () => {
+const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
+  const {authDispatch} = React.useContext(GlobalContext);
   return (
-    <Drawer.Navigator 
+    <Drawer.Navigator
       drawerType="slide"
-      drawerContent={({ navigation }) =>
+      drawerContent={({navigation}) =>
         getDrawerContent(navigation, authDispatch)
-      }
-    >
+      }>
       <Drawer.Screen name={HOME_NAVIGATOR} component={HomeNavigator} />
     </Drawer.Navigator>
   );
 };
 
-export default DrawNavigator;
+export default DrawerNavigator;

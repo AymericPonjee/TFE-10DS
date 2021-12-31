@@ -14,7 +14,7 @@ const auth = (state, { type, payload }) => {
     case REGISTER_LOADING:
       return {
         ...state,
-        loading: true,
+        loading: false,
       };
 
     case REGISTER_SUCCESS:

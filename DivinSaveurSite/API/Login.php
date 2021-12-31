@@ -5,10 +5,10 @@
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
-    $MailUtilisateur = $obj['mail_utilisateur'];
-    $MDPUtilisateur = $obj['mdp_utilisateur'];
+    $MailUtilisateur = $obj['MailUtilisateur'];
+    $MDPUtilisateur = $obj['MDPUtilisateur'];
 
-    $CheckSQL = "SELECT * FROM Utilisateur WHERE MailUtilisateur = '$MailUtilisateur' AND MDPUtilisateur = '$MDPUtilisateur'";
+    $CheckSQL = "SELECT MailUtilisateur, MDPUtilisateur FROM Utilisateur WHERE MailUtilisateur = '$MailUtilisateur' AND MDPUtilisateur = '$MDPUtilisateur'";
     $check = mysqli_fetch_array(mysqli_query($con,$CheckSQL));
 
     if(isset($check)){

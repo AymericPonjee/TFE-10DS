@@ -15,7 +15,7 @@ const Login = () => {
   } = useContext(GlobalContext);
 
   const onSubmit = () => {
-    if (form.MailUtilisateur && form.MDPUtilisateur) {
+    if (form.mail && form.password) {
       loginUser(form)(authDispatch);
     }
   };

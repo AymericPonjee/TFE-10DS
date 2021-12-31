@@ -7,7 +7,7 @@ import Container from '../../components/common/Container'
 import Input from '../../components/common/Input';
 import styles from './styles';
 
-import { CALENDAR, REGISTER } from '../../constants/routeNames';
+import { REGISTER } from '../../constants/routeNames';
 import Message from '../common/Message';
 
 
@@ -31,19 +31,21 @@ const LoginComponent = ({
       />
 
       <View>
-        <Text style={styles.title}>Bienvenue sur l'application de la 10ième unité Divin Sauveur !</Text>
+        <Text style={styles.title}>
+          Bienvenue sur l'application de la 10ième unité Divin Sauveur !
+        </Text>
 
         <View style={styles.form}>
           {justSignedUp && (
             <Message
-              onDismiss={() => { }}
+              onDismiss={() => {}}
               success
-              message="Compte créé"
+              message="Le compte a bien été créé"
             />
           )}
           {error && !error.error && (
             <Message
-              onDismiss={() => { }}
+              onDismiss={() => {}}
               danger
               message="Une erreur est survenue.. Réessayez"
             />
@@ -55,9 +57,9 @@ const LoginComponent = ({
             placeholder="Mail"
             icon={<Text>logo</Text>}
             iconPosition="right"
-            value={form.MailUtilisateur || null}
-            onChangeText={(value) => {
-              onChange({ name: 'MailUtilisateur', value });
+            value={form.mail || null}
+            onChangeText={value => {
+              onChange({name: 'mail', value});
             }}
           />
 
@@ -66,8 +68,8 @@ const LoginComponent = ({
             secureTextEntry={true}
             icon={<Text>logo</Text>}
             iconPosition="right"
-            onChangeText={(value) => {
-              onChange({ name: 'MDPUtilisateur', value });
+            onChangeText={value => {
+              onChange({name: 'password', value});
             }}
           />
 
@@ -75,15 +77,13 @@ const LoginComponent = ({
             disabled={loading}
             onPress={onSubmit}
             loading={loading}
-            primary 
-            title="Connexion" 
+            primary
+            title="Connexion"
           />
 
           <View>
             <TouchableOpacity onPress={() => navigate(REGISTER)}>
-              <Text style={styles.createAccount}>
-                Se créer un compte
-              </Text>
+              <Text style={styles.createAccount}>Se créer un compte</Text>
             </TouchableOpacity>
           </View>
         </View>
