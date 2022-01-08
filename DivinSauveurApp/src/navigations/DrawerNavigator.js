@@ -1,23 +1,28 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import HomeNavigator from './HomeNavigator';
-import {HOME_NAVIGATOR} from '../constants/routeNames';
+import {CALENDAR, CHAT, HOME, SETTINGS, SHOP} from '../constants/routeNames';
+import Calendrier from '../screens/Calendrier';
 import SideMenu from './SideMenu';
-import {GlobalContext} from '../context/Provider';
+import Boutique from '../screens/Boutique';
+import Chat from '../screens/Chat';
+import Settings from '../screens/Settings';
+import Home from '../screens/Home';
 
-const getDrawerContent = (navigation ) => {
-  return <SideMenu navigation={navigation} />;
-};
+
+// const getDrawerContent = navigation => {
+//   return <SideMenu navigation={navigation} />;
+// };
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
-  const {} = React.useContext(GlobalContext);
   return (
     <Drawer.Navigator
       drawerType="slide"
-      drawerContent={({navigation}) =>
-        getDrawerContent(navigation )
-      }>
-      <Drawer.Screen name={HOME_NAVIGATOR} component={HomeNavigator} />
+      drawerContent={props => <SideMenu {...props} />}>
+      <Drawer.Screen name={HOME} component={Home} />
+      <Drawer.Screen name={CALENDAR} component={Calendrier} />
+      <Drawer.Screen name={SHOP} component={Boutique} />
+      <Drawer.Screen name={CHAT} component={Chat} />
+      <Drawer.Screen name={SETTINGS} component={Settings} />
     </Drawer.Navigator>
   );
 };

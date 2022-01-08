@@ -1,21 +1,22 @@
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React from 'react';
-import { Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView, Image} from 'react-native';
 import Container from '../../components/common/Container';
 import styles from './styles';
 
-const SideMenu = ({  }) => {
+const SideMenu = (props) => {
   return (
-    <SafeAreaView>
-      <Container>
+    <DrawerContentScrollView {...props}>
+      <SafeAreaView>
         <Image
-          height={70}
-          width={70}
+          height={100}
+          width={100}
           source={require('../../assets/images/Logo.png')}
           style={styles.logoImage}
         />
-      </Container>
-    </SafeAreaView>
+        <DrawerItemList {...props} />
+      </SafeAreaView>
+    </DrawerContentScrollView>
   );
 };
 

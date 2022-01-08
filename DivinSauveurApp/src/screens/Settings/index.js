@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 const Settings = () => {
   return (
     <View>
-      <Text>paramètre</Text>
+      <Text>paramètres</Text>
     </View>
   )
 };
