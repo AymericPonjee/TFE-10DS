@@ -9,6 +9,7 @@ import {
 } from '../../constants/actionTypes';
 
 const auth = (state, { type, payload }) => {
+  
   switch (type) {
     case LOGIN_LOADING:
     case REGISTER_LOADING:

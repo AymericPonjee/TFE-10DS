@@ -47,7 +47,7 @@ const LoginComponent = ({
             <Message
               onDismiss={() => {}}
               danger
-              message="Une erreur est survenue.. Réessayez"
+              message="Une erreur est survenue.. Réessayez !"
             />
           )}
 

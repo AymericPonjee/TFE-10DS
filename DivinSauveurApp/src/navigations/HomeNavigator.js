@@ -2,12 +2,11 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { CALENDAR, CHAT, SETTINGS, SHOP, LOGOUT } from '../constants/routeNames';
+import { CALENDAR, CHAT, SETTINGS, SHOP } from '../constants/routeNames';
 import Calendrier from '../screens/Calendrier';
 import Boutique from '../screens/Boutique';
 import Chat from '../screens/Chat';
 import Settings from '../screens/Settings';
-import Logout from '../screens/Logout';
 
 const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
@@ -17,7 +16,6 @@ const HomeNavigator = () => {
       <HomeStack.Screen name={SHOP} component={Boutique} />
       <HomeStack.Screen name={CHAT} component={Chat} />
       <HomeStack.Screen name={SETTINGS} component={Settings} />
-      <HomeStack.Screen name={LOGOUT} component={Logout} />
     </HomeStack.Navigator>
   );
 };

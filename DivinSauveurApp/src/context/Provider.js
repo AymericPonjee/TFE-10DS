@@ -1,18 +1,18 @@
-import React, { createContext, useReducer } from 'react';
-import authInitialState from './initialStates/authState';
-import profilsInitialState from './initialStates/profilsInitialState';
-import auth from './reducers/auth';
-import profils from './reducers/profils';
+import React, { createContext, useState } from 'react';
 
-export const GlobalContext = createContext({});
+export const GlobalContext = createContext({
+  authenticated: false,
+  user: {},
+  setAuthenticated: () => {},
+  setUser: () => {},
+});
 
 const GlobalProvider = ({ children }) => {
-  const [authState, authDispatch] = useReducer(auth, authInitialState);
-  const [profilsState, profilsDispatch] = useReducer(profils, profilsInitialState);
-
+  const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState({});
   return (
     <GlobalContext.Provider
-      value={{ authState, profilsState, authDispatch, profilsDispatch }}>
+      value={{ authenticated, user, setAuthenticated, setUser }}>
         {children}
     </GlobalContext.Provider>
   );

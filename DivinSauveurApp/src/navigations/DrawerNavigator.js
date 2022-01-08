@@ -5,17 +5,17 @@ import {HOME_NAVIGATOR} from '../constants/routeNames';
 import SideMenu from './SideMenu';
 import {GlobalContext} from '../context/Provider';
 
-const getDrawerContent = (navigation, authDispatch) => {
-  return <SideMenu navigation={navigation} authDispatch={authDispatch} />;
+const getDrawerContent = (navigation ) => {
+  return <SideMenu navigation={navigation} />;
 };
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
-  const {authDispatch} = React.useContext(GlobalContext);
+  const {} = React.useContext(GlobalContext);
   return (
     <Drawer.Navigator
       drawerType="slide"
       drawerContent={({navigation}) =>
-        getDrawerContent(navigation, authDispatch)
+        getDrawerContent(navigation )
       }>
       <Drawer.Screen name={HOME_NAVIGATOR} component={HomeNavigator} />
     </Drawer.Navigator>

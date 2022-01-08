@@ -16,27 +16,25 @@ router.get("/", (req, res) => {
     });
 });
 
+//Login route
 router.post("/login", (req, res) => {
   const myPlaintextPassword = req.body.password;
 
-  User.find({ mail: req.body.mail })
+  User.findOne({ mail: req.body.mail })
     .then((data) => {
+      const user = new User(data);
       console.log("user ->", user);
-      console.log("myPlaintextPassword", myPlaintextPassword);
-      console.log("data.password", user.mail);
-      const x = JSON.parse(data);
-      const user = new User(x);
 
       bcrypt.compare(myPlaintextPassword, user.password, (err, result) => {
-        console.log("result", result);
-        console.log("error", err);
+        console.log("result ->", result);
 
         if (result == true) {
           res.json(data);
           res.status(201);
-        } else {
-          res.status(404);
-          res.json({ message: err });
+        } 
+        if (result == false || err) {
+          res.status(401);
+          res.json({ message: 'email ou mot de passe incorrect' });
         }
       });
     })
@@ -46,7 +44,8 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/signup", (req, res) => {
+// Register route
+router.post("/register", (req, res) => {
   bcrypt.hash("password", saltRounds, (err, hashedPassword) => {
     if (err) {
       console.log(err);
