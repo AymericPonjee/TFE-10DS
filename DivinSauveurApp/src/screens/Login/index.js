@@ -46,8 +46,8 @@ const Login = () => {
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}
-      //error={error}
-      //loading={loading}
+      // error={error}
+      // loading={loading}
       justSignedUp={justSignedUp}
     />
   );

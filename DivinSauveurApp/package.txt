@@ -1,6 +1,6 @@
 --------------------------------------
 
-REACT NAVIGATION :
+NAVIGATION :
 
 yarn add @react-navigation/native
 yarn add react-native-screens react-native-safe-area-context
@@ -19,5 +19,11 @@ AXIOS :
 
 yarn add axios
 yarn add @react-native-async-storage/async-storage
+
+--------------------------------------
+
+ICONS : 
+
+yarn add react-native-vector-icons
 
 --------------------------------------

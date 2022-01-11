@@ -9,11 +9,10 @@ import Chat from '../screens/Chat';
 import Settings from '../screens/Settings';
 import Home from '../screens/Home';
 
-
 const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
   return (
-    <HomeStack.Navigator initialRouteName={HOME}>
+    <HomeStack.Navigator initialRouteName={HOME} >
       <HomeStack.Screen name={HOME} component={Home} />
       <HomeStack.Screen name={CALENDAR} component={Calendrier} />
       <HomeStack.Screen name={SHOP} component={Boutique} />
