@@ -16,7 +16,6 @@ export default StyleSheet.create({
     color: 'white',
     opacity: 0.8,
     fontWeight: 'bold',
-    
   },
 
   form: {
@@ -27,6 +26,9 @@ export default StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: 16,
     color: colors.white,
-    marginTop: 10
+    marginTop: 10,
   },
+  InputIcon: {
+    paddingLeft: 5
+  }
 });

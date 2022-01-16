@@ -3,20 +3,32 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import React, {useContext} from 'react';
-import {SafeAreaView, Image, View, Text} from 'react-native';
+import {SafeAreaView, Image, View, Text, Alert} from 'react-native';
 import styles from './styles';
 import {GlobalContext} from '../../context/Provider';
 import {clearData} from '../../utils/storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import colors from '../../assets/themes/colors';
 
 const SideMenu = props => {
   const {setAuthenticated, setUser} = useContext(GlobalContext);
 
   const handleSubmit = async () => {
-    setAuthenticated(false);
-    setUser({});
+    Alert.alert('Déconnexion', 'Voulez-vous vraiment vous déconnectez ?', [
+      {
+        text: 'Non',
+        onPress: () => {},
+      },
+
+      {
+        text: 'Oui',
+        onPress: () => {
+          setAuthenticated(false);
+          setUser({});
+        },
+      },
+    ]);
     await clearData();
   };
 

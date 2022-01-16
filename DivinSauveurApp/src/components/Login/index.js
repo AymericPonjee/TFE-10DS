@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import Container from '../../components/common/Container'
 import Input from '../../components/common/Input';
 import styles from './styles';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { REGISTER } from '../../constants/routeNames';
 import Message from '../common/Message';
@@ -55,7 +56,15 @@ const LoginComponent = ({
 
           <Input
             placeholder="Mail"
-            icon={<Text>logo</Text>}
+            keyboardType="email-address"
+            icon={
+              <Ionicons
+                name={'ios-mail-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
             value={form.mail || null}
             onChangeText={value => {
@@ -65,8 +74,16 @@ const LoginComponent = ({
 
           <Input
             placeholder="Password"
+            autoCorrect={false}
             secureTextEntry={true}
-            icon={<Text>logo</Text>}
+            icon={
+              <Ionicons
+                name={'ios-lock-closed-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
             onChangeText={value => {
               onChange({name: 'password', value});

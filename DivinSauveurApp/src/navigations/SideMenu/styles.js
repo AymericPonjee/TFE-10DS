@@ -21,6 +21,6 @@ export default StyleSheet.create({
     marginLeft: 5,
     fontSize: 15,
     color: colors.darkBlue,
-    //fontFamily:'roboto'
+    //fontFamily: 'Roboto',
   },
 });

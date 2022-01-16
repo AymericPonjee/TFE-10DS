@@ -8,6 +8,7 @@ import Container from '../common/Container'
 import Input from '../common/Input';
 import styles from './styles';
 import Message from '../common/Message';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { LOGIN } from '../../constants/routeNames';
 
@@ -38,65 +39,98 @@ const RegisterComponent = ({
           )}
           <Input
             placeholder="Nom*"
-            icon={<Text>logo</Text>}
+            icon={
+              <Ionicons
+                name={'person-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
-            onChangeText={(value) => {
-              onChange({ name: 'name', value });
+            onChangeText={value => {
+              onChange({name: 'name', value});
             }}
             error={errors.name || error?.nom_utilisateur?.[0]}
           />
 
           <Input
             placeholder="Prénom*"
-            icon={<Text>logo</Text>}
+            icon={
+              <Ionicons
+                name={'person-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
-            onChangeText={(value) => {
-              onChange({ name: 'firstname', value });
+            onChangeText={value => {
+              onChange({name: 'firstname', value});
             }}
             error={errors.firstname || error?.prenom_utilisateur?.[0]}
           />
 
           <Input
             placeholder="Totem"
-            icon={<Text>logo</Text>}
+            icon={
+              <Ionicons
+                name={'paw-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
-            onChangeText={(value) => {
-              onChange({ name: 'totem', value });
+            onChangeText={value => {
+              onChange({name: 'totem', value});
             }}
-          /> 
+          />
 
           <Input
             placeholder="quali"
-            icon={<Text>logo</Text>}
+            icon={
+              <Ionicons
+                name={'ios-book-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
-            onChangeText={(value) => {
-              onChange({ name: 'quali', value });
+            onChangeText={value => {
+              onChange({name: 'quali', value});
             }}
           />
 
           <Input
             placeholder="Mail*"
-            icon={<Text>logo</Text>}
+            icon={
+              <Ionicons
+                name={'ios-mail-outline'}
+                size={22}
+                color={'rgba(153,178,208,0.7)'}
+                style={styles.InputIcon}
+              />
+            }
             iconPosition="right"
-            onChangeText={(value) => {
-              onChange({ name: 'mail', value });
+            onChangeText={value => {
+              onChange({name: 'mail', value});
             }}
             error={errors.mail || error?.mail_utilisateur?.[0]}
           />
 
-          <CustomButton 
-            loading={loading}
-            onPress={onSubmit} 
+          <CustomButton
+            //loading={loading}
+            onPress={onSubmit}
             disabled={loading}
-            primary 
-            title="Je m'inscris !" 
+            primary
+            title="Je m'inscris !"
           />
 
           <View>
             <TouchableOpacity onPress={() => navigate(LOGIN)}>
-              <Text style={styles.retour}>
-                Retour
-              </Text>
+              <Text style={styles.retour}>Retour</Text>
             </TouchableOpacity>
           </View>
         </View>
