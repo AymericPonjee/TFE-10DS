@@ -1,28 +1,45 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
-import {ScrollView, Text, View, ImageBackground, StatusBar} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import {ADDEVENT} from '../../constants/routeNames';
+
 import styles from './styles';
-import CustomButton from '../common/CustomButton';
 
 const CalendarComponent = ({}) => {
+
+  const {navigate} = useNavigation();
+
   return (
     <ImageBackground
       source={require('../../assets/images/Background.jpg')}
       style={styles.imageBg}>
       <StatusBar barStyle="light-content" />
-      
+
       <View style={styles.sectionTop}>
-        <Text style={styles.title}>Voici les prochains evenements à venir</Text>
+        <Text style={styles.title}>Voici les prochains évènements à venir</Text>
 
         <ScrollView>
           <View style={styles.event}>
-            <Text>Liste des evenements</Text>
+            <Text>Liste des évènements</Text>
           </View>
         </ScrollView>
       </View>
 
       <View style={styles.sectionBot}>
-        <CustomButton style={styles.addEvent} primary title="+" />
+        <TouchableOpacity
+          style={styles.addEvent}
+          primary
+          onPress={() => navigate(ADDEVENT)}>
+          <Text style={styles.add}>+</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );

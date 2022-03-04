@@ -14,7 +14,7 @@ const AppNavContainer = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      {authenticated ? <DrawerNavigator /> : <AuthNavigator />}
+      {authenticated ? <DrawerNavigator />: <AuthNavigator />}
     </NavigationContainer>
   );
 };

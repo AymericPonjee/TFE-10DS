@@ -1,16 +1,22 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {CALENDAR, CHAT, HOME, SETTINGS, SHOP} from '../constants/routeNames';
-import Calendrier from '../screens/Calendrier';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import {ADDEVENT, CALENDAR, CHAT, HOME, SETTINGS, SHOP} from '../constants/routeNames';
+
 import SideMenu from './SideMenu';
+import Calendrier from '../screens/Calendrier';
 import Boutique from '../screens/Boutique';
 import Chat from '../screens/Chat';
 import Settings from '../screens/Settings';
 import Home from '../screens/Home';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AddEvent from '../screens/AddEvent';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
+
   return (
     <Drawer.Navigator
       drawerType="slide"
@@ -36,6 +42,15 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name={CALENDAR}
         component={Calendrier}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="calendar-outline" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={ADDEVENT}
+        component={AddEvent}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="calendar-outline" size={22} color={color} />
