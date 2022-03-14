@@ -27,3 +27,11 @@ ICONS :
 yarn add react-native-vector-icons
 
 --------------------------------------
+
+CREATE EVENT 
+
+yarn add react-native-date-picker
+yarn add react-native-modal-datetime-picker @react-native-community/datetimepicker
+
+--------------------------------------
+

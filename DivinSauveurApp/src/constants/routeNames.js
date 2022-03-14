@@ -1,5 +1,5 @@
 export const CALENDAR = 'Calendrier';
-export const ADDEVENT = 'Ajouter une évènement';
+export const ADDEVENT = 'Nouvel évènement';
 
 export const HOME = 'Home';
 export const SHOP = 'Boutique';
