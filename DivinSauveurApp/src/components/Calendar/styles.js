@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
   },
   sectionTop: {
-    padding: 15,
+    padding: 12,
   },
   title: {
     fontSize: 16,
@@ -16,8 +16,57 @@ export default StyleSheet.create({
     opacity: 0.8,
     fontWeight: 'bold',
   },
-  event: {
-    
+  listTab: {
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginBottom: 15,
+  },
+  btnTab: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderColor: colors.darkBlue,
+    padding: 8,
+    justifyContent: 'center',
+  },
+  textTab: {
+    fontSize: 12,
+    color: colors.white,
+  },
+  btnTabActive: {
+    backgroundColor: colors.darkBlue,
+  },
+  listEvent: {
+    borderRadius: 60,
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    padding: 5,
+    paddingLeft: 20,
+    height: 60,
+    marginVertical: 5
+  },
+  nameEvent: {
+    color: colors.darkBlue,
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  lieuEvent: {
+    color: colors.white,
+    fontSize: 15,
+  },
+  dateEvent: {
+    color: colors.white,
+    fontSize: 20,
+    position: 'absolute',
+    paddingTop: 10,
+    paddingRight: 20,
+    alignSelf: 'flex-end',
+  },
+  sectionEvent: {
+    color: colors.white,
+    position: 'absolute',
+    paddingRight: 20,
+    bottom: 10,
+    alignSelf: 'flex-end',
   },
   sectionBot: {
     padding: 10,
@@ -38,6 +87,5 @@ export default StyleSheet.create({
   add: {
     color: colors.lightGrey,
     fontSize: 35,
-    
   },
 });

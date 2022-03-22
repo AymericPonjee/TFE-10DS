@@ -39,6 +39,7 @@ const RegisterComponent = ({
           )}
           <Input
             placeholder="Nom*"
+            autoCorrect={false}
             icon={
               <Ionicons
                 name={'person-outline'}
@@ -56,6 +57,7 @@ const RegisterComponent = ({
 
           <Input
             placeholder="Prénom*"
+            autoCorrect={false}
             icon={
               <Ionicons
                 name={'person-outline'}
@@ -73,6 +75,7 @@ const RegisterComponent = ({
 
           <Input
             placeholder="Totem"
+            autoCorrect={false}
             icon={
               <Ionicons
                 name={'paw-outline'}
@@ -89,6 +92,7 @@ const RegisterComponent = ({
 
           <Input
             placeholder="quali"
+            autoCorrect={false}
             icon={
               <Ionicons
                 name={'ios-book-outline'}
@@ -105,6 +109,7 @@ const RegisterComponent = ({
 
           <Input
             placeholder="Mail*"
+            autoCorrect={false}
             icon={
               <Ionicons
                 name={'ios-mail-outline'}
@@ -121,7 +126,7 @@ const RegisterComponent = ({
           />
 
           <CustomButton
-            //loading={loading}
+            loading={loading}
             onPress={onSubmit}
             disabled={loading}
             primary

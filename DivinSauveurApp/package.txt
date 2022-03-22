@@ -35,3 +35,8 @@ yarn add react-native-modal-datetime-picker @react-native-community/datetimepick
 
 --------------------------------------
 
+CHECKBOX
+
+yarn add @react-native-community/checkbox
+
+--------------------------------------

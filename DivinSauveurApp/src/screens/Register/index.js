@@ -11,6 +11,8 @@ import {LOGIN} from '../../constants/routeNames';
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const navigation = useNavigation();
+
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -25,8 +27,6 @@ const Register = () => {
       });
     }
   };
-
-  const navigation = useNavigation();
 
   const onSubmit = () => {
     if (!form.name) {
@@ -45,6 +45,7 @@ const Register = () => {
       });
     }
     if (
+      Object.values(form).length === 5 &&
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {

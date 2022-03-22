@@ -5,7 +5,6 @@ export default StyleSheet.create({
   title: {
     fontSize: 16,
     paddingTop: 100,
-    paddingBottom: 15,
     color: 'white',
     opacity: 0.8,
     fontWeight: 'bold',
@@ -22,6 +21,19 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.darkGrey,
     borderWidth: 0,
+    marginVertical: 10,
+  },
+  customcheckBox: {
+    color: colors.lightGrey,
+    opacity: 0.5,
+    fontSize: 16,
+    marginHorizontal: 5,
+    paddingBottom:5
+  },
+  checkBoxContainer: {
+    borderRadius: 20,
+    padding: 10,
+    backgroundColor: colors.darkGrey,
     marginVertical: 10,
   },
   CustomText: {

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   ScrollView,
@@ -13,9 +13,13 @@ import {ADDEVENT} from '../../constants/routeNames';
 
 import styles from './styles';
 
-const CalendarComponent = ({}) => {
+const CalendarComponent = ({ listTab }) => {
 
   const {navigate} = useNavigation();
+  const [status, setStatus] = useState('All');
+  const setStatusFilter = status=> {
+    setStatus(status)
+  }
 
   return (
     <ImageBackground
@@ -24,11 +28,49 @@ const CalendarComponent = ({}) => {
       <StatusBar barStyle="light-content" />
 
       <View style={styles.sectionTop}>
-        <Text style={styles.title}>Voici les prochains évènements à venir</Text>
+        <Text style={styles.title}>
+          Voici les prochains évènements à venir :{' '}
+        </Text>
+
+        <View style={styles.listTab}>
+          {listTab.map(e => (
+            <TouchableOpacity
+              style={[
+                styles.btnTab,
+                status === e.status && styles.btnTabActive,
+              ]}
+              onPress={() => setStatusFilter(e.status)}>
+              <Text style={styles.textTab}>{e.status}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
         <ScrollView>
-          <View style={styles.event}>
-            <Text>Liste des évènements</Text>
+          <View>
+            <TouchableOpacity style={styles.listEvent}>
+              <Text style={styles.nameEvent}>Réunion</Text>
+              <Text style={styles.lieuEvent}>Local</Text>
+              <Text style={styles.dateEvent}>14 mars 2022</Text>
+              <Text style={styles.sectionEvent}>All section</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity style={styles.listEvent}>
+              <Text style={styles.nameEvent}>24h vélo</Text>
+              <Text style={styles.lieuEvent}>Bois de la Cambre</Text>
+              <Text style={styles.dateEvent}>25 mars 2022</Text>
+              <Text style={styles.sectionEvent}>Éclaireurs</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity style={styles.listEvent}>
+              <Text style={styles.nameEvent}>3HT</Text>
+              <Text style={styles.lieuEvent}>Bois de Uccle</Text>
+              <Text style={styles.dateEvent}>26 mars 2022</Text>
+              <Text style={styles.sectionEvent}>Baladins</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

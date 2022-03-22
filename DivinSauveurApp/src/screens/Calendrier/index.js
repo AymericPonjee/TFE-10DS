@@ -8,6 +8,27 @@ import CalendarComponent from '../../components/Calendar';
 const Calendrier = () => {
   const {setOptions, toggleDrawer} = useNavigation();
 
+  const listTab = [
+    {
+      status: 'All',
+    },
+    {
+      status: 'Baladins',
+    },
+    {
+      status: 'Mowha',
+    },
+    {
+      status: 'Seeonee',
+    },
+    {
+      status: 'Éclaireurs',
+    },
+    {
+      status: 'Pionniers',
+    },
+  ];
+
   React.useEffect(() => {
     setOptions({
       headerTransparent: true,
@@ -36,7 +57,9 @@ const Calendrier = () => {
   }, []);
 
   return (
-    <CalendarComponent />
+    <CalendarComponent 
+      listTab={listTab}
+    />
   );
 };
 
