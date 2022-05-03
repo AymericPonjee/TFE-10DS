@@ -1,5 +1,6 @@
 export const CALENDAR = 'Calendrier';
 export const ADDEVENT = 'Nouvel évènement';
+export const DETAILSEVENT = "Détails";
 
 export const HOME = 'Home';
 export const SHOP = 'Boutique';

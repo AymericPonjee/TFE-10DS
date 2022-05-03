@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import { CALENDAR, ADDEVENT, CHAT, HOME, SETTINGS, SHOP} from '../constants/routeNames';
 import Calendrier from '../screens/Calendrier';
@@ -13,14 +14,17 @@ import Home from '../screens/Home';
 
 const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
+  const Drawer = createDrawerNavigator();
+
   return (
     <HomeStack.Navigator initialRouteName={HOME}>
       <HomeStack.Screen name={HOME} component={Home} />
       <HomeStack.Screen name={CALENDAR} component={Calendrier} />
-      <HomeStack.Screen name={ADDEVENT} component={AddEvent} />
+      {/* <HomeStack.Screen name={ADDEVENT} component={AddEvent} /> */}
       <HomeStack.Screen name={SHOP} component={Boutique} />
       <HomeStack.Screen name={CHAT} component={Chat} />
       <HomeStack.Screen name={SETTINGS} component={Settings} />
+      <Drawer.Screen name={ADDEVENT} component={AddEvent} />
     </HomeStack.Navigator>
   );
 };

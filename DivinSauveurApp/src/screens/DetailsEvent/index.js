@@ -3,10 +3,12 @@ import React from 'react';
 
 import {TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import BoutiqueComponent from '../../components/Boutique';
 
-const Boutique = () => {
-  const {setOptions, toggleDrawer} = useNavigation();
+import DetailsEventComponent from '../../components/DetailsEvent';
+import {CALENDAR} from '../../constants/routeNames';
+
+const DetailsEvent = () => {
+  const {setOptions, navigate} = useNavigation();
 
   React.useEffect(() => {
     setOptions({
@@ -17,15 +19,12 @@ const Boutique = () => {
       headerTintColor: 'rgba(255,255,255,0.6)',
       headerTitleStyle: {
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 26,
       },
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            toggleDrawer();
-          }}>
+        <TouchableOpacity onPress={() => navigate(CALENDAR)}>
           <Ionicons
-            name="menu"
+            name="chevron-back"
             size={35}
             color={'rgba(255,255,255,0.6)'}
             style={{paddingLeft: 10}}
@@ -34,7 +33,8 @@ const Boutique = () => {
       ),
     });
   }, []);
-  return <BoutiqueComponent />;
+
+  return <DetailsEventComponent />;
 };
 
-export default Boutique;
+export default DetailsEvent;

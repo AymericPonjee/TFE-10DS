@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 import colors from '../../assets/themes/colors';
 
 export default StyleSheet.create({
+  imageBg:{
+    flex:1
+  },
   title: {
     fontSize: 16,
     paddingTop: 100,

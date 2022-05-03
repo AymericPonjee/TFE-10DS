@@ -194,7 +194,7 @@ const AddEventComponent = ({}) => {
         <View style={styles.textAreaContainer}>
           <TextInput
             style={styles.textArea}
-            placeholder="Commentaires ou remarques sur l'évènement"
+            placeholder="Description de l'évènement"
             placeholderTextColor={colors.lightBlue}
             numberOfLines={20}
             multiline={true}

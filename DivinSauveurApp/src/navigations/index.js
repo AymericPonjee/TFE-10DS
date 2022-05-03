@@ -9,12 +9,11 @@ import {GlobalContext} from '../context/Provider';
 
 const AppNavContainer = () => {
   const {authenticated} = useContext(GlobalContext);
-
   const navigationRef = useNavigationContainerRef();
 
   return (
     <NavigationContainer ref={navigationRef}>
-      {authenticated ? <DrawerNavigator />: <AuthNavigator />}
+      {authenticated ? <DrawerNavigator /> : <AuthNavigator />} 
     </NavigationContainer>
   );
 };

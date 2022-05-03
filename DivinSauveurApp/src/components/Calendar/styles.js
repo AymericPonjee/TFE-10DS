@@ -42,7 +42,7 @@ export default StyleSheet.create({
     padding: 5,
     paddingLeft: 20,
     height: 60,
-    marginVertical: 5
+    marginVertical: 8
   },
   nameEvent: {
     color: colors.darkBlue,

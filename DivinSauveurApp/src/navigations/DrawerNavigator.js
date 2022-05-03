@@ -1,8 +1,15 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createStackNavigator} from '@react-navigation/stack';
 
-import {ADDEVENT, CALENDAR, CHAT, HOME, SETTINGS, SHOP} from '../constants/routeNames';
+import {
+  DETAILSEVENT,
+  ADDEVENT,
+  CALENDAR,
+  CHAT,
+  HOME,
+  SETTINGS,
+  SHOP,
+} from '../constants/routeNames';
 
 import SideMenu from './SideMenu';
 import Calendrier from '../screens/Calendrier';
@@ -10,9 +17,23 @@ import Boutique from '../screens/Boutique';
 import Chat from '../screens/Chat';
 import Settings from '../screens/Settings';
 import Home from '../screens/Home';
+import AddEvent from '../screens/AddEvent';
+import DetailsEvent from '../screens/DetailsEvent';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AddEvent from '../screens/AddEvent';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+const Calendar = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name={CALENDAR} component={Calendrier} />
+      <Stack.Screen name={ADDEVENT} component={AddEvent} />
+      <Stack.Screen name={DETAILSEVENT} component={DetailsEvent} />
+    </Stack.Navigator>
+  );
+};
+
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -41,17 +62,9 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={CALENDAR}
-        component={Calendrier}
+        component={Calendar}
         options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="calendar-outline" size={22} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name={ADDEVENT}
-        component={AddEvent}
-        options={{
+          headerShown: false,
           drawerIcon: ({color}) => (
             <Ionicons name="calendar-outline" size={22} color={color} />
           ),

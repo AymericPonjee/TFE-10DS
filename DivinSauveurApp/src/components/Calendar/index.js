@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {ADDEVENT} from '../../constants/routeNames';
+import {DETAILSEVENT} from '../../constants/routeNames';
+
 
 import styles from './styles';
 
@@ -47,7 +49,9 @@ const CalendarComponent = ({ listTab }) => {
 
         <ScrollView>
           <View>
-            <TouchableOpacity style={styles.listEvent}>
+            <TouchableOpacity
+              style={styles.listEvent}
+              onPress={() => navigate(DETAILSEVENT)}>
               <Text style={styles.nameEvent}>Réunion</Text>
               <Text style={styles.lieuEvent}>Local</Text>
               <Text style={styles.dateEvent}>14 mars 2022</Text>
@@ -56,7 +60,9 @@ const CalendarComponent = ({ listTab }) => {
           </View>
 
           <View>
-            <TouchableOpacity style={styles.listEvent}>
+            <TouchableOpacity
+              style={styles.listEvent}
+              onPress={() => navigate(DETAILSEVENT)}>
               <Text style={styles.nameEvent}>24h vélo</Text>
               <Text style={styles.lieuEvent}>Bois de la Cambre</Text>
               <Text style={styles.dateEvent}>25 mars 2022</Text>
@@ -65,7 +71,9 @@ const CalendarComponent = ({ listTab }) => {
           </View>
 
           <View>
-            <TouchableOpacity style={styles.listEvent}>
+            <TouchableOpacity
+              style={styles.listEvent}
+              onPress={() => navigate(DETAILSEVENT)}>
               <Text style={styles.nameEvent}>3HT</Text>
               <Text style={styles.lieuEvent}>Bois de Uccle</Text>
               <Text style={styles.dateEvent}>26 mars 2022</Text>
@@ -79,7 +87,7 @@ const CalendarComponent = ({ listTab }) => {
         <TouchableOpacity
           style={styles.addEvent}
           primary
-          onPress={() => navigate(ADDEVENT)}>
+          onPress={() => navigate(ADDEVENT) }>
           <Text style={styles.add}>+</Text>
         </TouchableOpacity>
       </View>
