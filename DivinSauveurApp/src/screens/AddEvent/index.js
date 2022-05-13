@@ -1,5 +1,8 @@
+import React, {useState} from 'react';
+
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
+
+import {create} from '../../context/actions/event/index';
 
 import {TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,9 +10,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AddEventComponent from '../../components/AddEvent';
 import {CALENDAR} from '../../constants/routeNames';
 
-
 const AddEvent = () => {
   const {setOptions, navigate} = useNavigation();
+
+  const navigation = useNavigation();
 
   React.useEffect(() => {
     setOptions({
@@ -35,7 +39,9 @@ const AddEvent = () => {
     });
   }, []);
 
-  return <AddEventComponent />;
+  return (
+    <AddEventComponent />
+  );
 };
 
 export default AddEvent;

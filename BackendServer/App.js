@@ -21,7 +21,10 @@ app.use(
 );
 
 const userControlleur = require('./controllers/userController');
+const eventControlleur = require("./controllers/eventController");
+
 app.use('/Users', userControlleur);
+app.use("/Events", eventControlleur);
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
   console.log("[DB]: connected");

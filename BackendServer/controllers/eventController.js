@@ -1,15 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/Event");
+const Event = require("../models/Event");
 
 //route pour récuperer la liste des évènements
-router.get("/event", (res) => {
-
-  User.find()
-    .then((events) => {
-      res.json(events);
+router.post("/create", (req, res) => {
+  const event = new Event({ ...req.body });
+  event
+    .save()
+    .then((data) => {
+      res.json(data);
+      res.status(201);
     })
     .catch((err) => {
-      res.json({ message: err });
+      console.log("[eventController] : error on create", err);
+      res.json({ err });
     });
 });
+
+module.exports = router;

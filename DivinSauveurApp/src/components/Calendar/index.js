@@ -31,7 +31,7 @@ const CalendarComponent = ({ listTab }) => {
 
       <View style={styles.sectionTop}>
         <Text style={styles.title}>
-          Voici les prochains évènements à venir :{' '}
+          Voici les prochains évènements à venir :
         </Text>
 
         <View style={styles.listTab}>

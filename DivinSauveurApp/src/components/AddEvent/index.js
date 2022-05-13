@@ -1,28 +1,65 @@
 import React, {useState} from 'react';
 
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import DatePicker from 'react-native-date-picker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {CheckBox} from 'react-native-elements';
+import { View, Text, TouchableOpacity, TextInput} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import CheckBox from '@react-native-community/checkbox';
 import Input from '../../components/common/Input';
 import Container from '../../components/common/Container';
 import CustomButton from '../common/CustomButton';
 import styles from './styles';
 import colors from '../../assets/themes/colors';
 
-const AddEventComponent = ({}) => {
-  const [date, setDate] = useState(new Date());
+import {create} from '../../context/actions/event';
+import {SECTIONS} from '../../constants/actionTypes';
+
+const AddEventComponent = () => {
   const [open, setOpen] = useState(false);
 
-  const [baladins, setBaladins] = useState(false);
-  const [mohwa, setMohwa] = useState(false);
-  const [seeonee, setSeeonee] = useState(false);
-  const [éclaireurs, setÉclaireurs] = useState(false);
-  const [pionniers, setPionniers] = useState(false);
-  const [chefs, setChefs] = useState(false);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState();
+  const [startEvent, setStartEvent] = useState();
+  const [endEvent, setEndEvent] = useState();
+  const [selectedDateInput, setSelectedDateInput] = useState('startEvent');
+  const [sections, setSections] = useState({});
+  const [description, setDescription] = useState();
 
-  const Sections = [] 
+  const handleDate = date => {
+    if (selectedDateInput === 'startEvent') {
+      setStartEvent(date);
+    } else {
+      setEndEvent(date);
+    }
+  };
+
+  const handleSection = (key, value) => {
+    const sec = {...sections};
+    sec[key] = value;
+    setSections(sec);
+  };
+
+  const handleSubmit = () => {
+    const arrayOfSections = [];
+    Object.entries(sections).forEach(([key, value]) => {
+      if (value == true) {
+        arrayOfSections.push(key);
+      }
+    });
+
+    const event = {
+      name: name,
+      address: address,
+      beginAt: startEvent,
+      endAt: endEvent,
+      section: arrayOfSections,
+      comment: description,
+    };
+    
+    return create(event)
+      .then(resp => console.log('resp =>', resp))
+      .catch(err => console.log('err =>', err.status));
+  };
 
   return (
     <Container>
@@ -30,27 +67,28 @@ const AddEventComponent = ({}) => {
         <Text style={styles.title}>Veuillez Complèter le formulaire :</Text>
       </View>
 
-      <DatePicker
-        modal
+      <DateTimePickerModal
+        date={new Date()}
+        isVisible={open}
         mode="datetime"
-        open={open}
-        date={date}
-        //onDateChange={setDate}
         onConfirm={date => {
+          handleDate(date);
           setOpen(false);
-          setDate(date);
         }}
         onCancel={() => {
           setOpen(false);
         }}
-        confirmText="Confirmer"
-        cancelText="Annuler"
-        title="sélectionnez une date"
-        locale="fr"
+        locale="fr-BE"
+        minimumDate={new Date()}
+        Com
       />
 
       <View style={styles.form}>
         <Input
+          type="text"
+          name="name"
+          value={name}
+          onChangeText={v => setName(v)}
           placeholder="Nom de l'évènement*"
           icon={
             <Ionicons
@@ -62,6 +100,10 @@ const AddEventComponent = ({}) => {
           iconPosition="right"
         />
         <Input
+          type="text"
+          name="address"
+          value={address}
+          onChangeText={v => setAddress(v)}
           placeholder="Adresse de l'évènement*"
           icon={
             <Ionicons
@@ -74,125 +116,70 @@ const AddEventComponent = ({}) => {
         />
 
         <TouchableOpacity
-          style={styles.DatePicker}
-          onPress={() => setOpen(true)}>
-          <Ionicons
-            name="calendar-outline"
-            size={23}
-            color={'rgba(153, 178, 208, 0.7)'}
+          onPress={() => {
+            setSelectedDateInput('startEvent');
+            setOpen(true);
+          }}>
+          <Input
+            type="text"
+            name="startEvent"
+            value={startEvent ? new Date(startEvent).toLocaleString() : ''}
+            placeholder="Début de l'évènement*"
+            pointerEvents="none"
+            icon={
+              <Ionicons
+                name={'calendar-outline'}
+                size={23}
+                color={'rgba(153,178,208,0.7)'}
+              />
+            }
+            iconPosition="right"
           />
-          <Text style={styles.CustomText}>Début de l'évènement*</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.DatePicker}
-          onPress={() => setOpen(true)}>
-          <Ionicons
-            name="calendar-outline"
-            size={23}
-            color={'rgba(153, 178, 208, 0.7)'}
+          onPress={() => {
+            setSelectedDateInput('endEvent');
+            setOpen(true);
+          }}>
+          <Input
+            type="text"
+            name="endEvent"
+            value={endEvent ? new Date(endEvent).toLocaleString() : ''}
+            placeholder="Fin de l'évènement*"
+            pointerEvents="none"
+            icon={
+              <Ionicons
+                name={'calendar-outline'}
+                size={23}
+                color={'rgba(153,178,208,0.7)'}
+              />
+            }
+            iconPosition="right"
           />
-          <Text style={styles.CustomText}>Fin de l'évènement*</Text>
         </TouchableOpacity>
 
         <View style={styles.checkBoxContainer}>
-          <Text style={styles.customcheckBox}>
-            Section concerné par l'évènement*
-          </Text>
-          <CheckBox
-            title="Baladins"
-            checked={baladins}
-            onPress={() => setBaladins(!baladins)}
-            checkedColor={colors.lightBlue}
-            textStyle={{
-              fontSize: 16,
-              color: colors.lightGrey,
-            }}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              paddingVertical: 0,
-            }}
-          />
-          <CheckBox
-            title="Mohwa"
-            checked={mohwa}
-            onPress={() => setMohwa(!mohwa)}
-            checkedColor={colors.lightBlue}
-            textStyle={{
-              fontSize: 16,
-              color: colors.lightGrey,
-            }}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              paddingVertical: 0,
-            }}
-          />
-          <CheckBox
-            title="Seeonee"
-            checked={seeonee}
-            onPress={() => setSeeonee(!seeonee)}
-            checkedColor={colors.lightBlue}
-            textStyle={{
-              fontSize: 16,
-              color: colors.lightGrey,
-            }}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              paddingVertical: 0,
-            }}
-          />
-          <CheckBox
-            title="Éclaireurs"
-            checked={éclaireurs}
-            onPress={() => setÉclaireurs(!éclaireurs)}
-            checkedColor={colors.lightBlue}
-            textStyle={{
-              fontSize: 16,
-              color: colors.lightGrey,
-            }}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              paddingVertical: 0,
-            }}
-          />
-          <CheckBox
-            title="Pionniers"
-            checked={pionniers}
-            onPress={() => setPionniers(!pionniers)}
-            checkedColor={colors.lightBlue}
-            textStyle={{
-              fontSize: 16,
-              color: colors.lightGrey,
-            }}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              paddingVertical: 0,
-            }}
-          />
-          <CheckBox
-            title="Chefs"
-            checked={chefs}
-            onPress={() => setChefs(!chefs)}
-            checkedColor={colors.lightBlue}
-            textStyle={{
-              fontSize: 16,
-              color: colors.lightGrey,
-            }}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              paddingVertical: 0,
-            }}
-          />
+          {SECTIONS.map((el, index) => (
+            <View key={index} style={styles.checkBoxSection}>
+              <View style={styles.checkBoxView}>
+                <CheckBox
+                  value={sections[el] ?? false}
+                  style={styles.checkBox}
+                  hideBox
+                  onValueChange={value => handleSection(el, value)}
+                />
+              </View>
+              <Text style={styles.labelCheckBox}>{el}</Text>
+            </View>
+          ))}
         </View>
 
         <View style={styles.textAreaContainer}>
           <TextInput
+            type="text"
+            name="description"
+            value={description}
             style={styles.textArea}
             placeholder="Description de l'évènement"
             placeholderTextColor={colors.lightBlue}
@@ -206,11 +193,12 @@ const AddEventComponent = ({}) => {
               />
             }
             iconPosition="right"
+            onChangeText={v => setDescription(v)}
           />
         </View>
 
         <CustomButton
-          //onPress={onSubmit}
+          onPress={handleSubmit}
           primary
           title="Ajouter l'évènement à la liste"
         />
