@@ -1,13 +1,17 @@
-export const CALENDAR = 'Calendrier';
+export const CALENDAR = 'Évènement';
+export const CALENDARSTACK = 'Calendrier';
+
 export const ADDEVENT = 'Nouvel évènement';
 export const DETAILSEVENT = "Détails";
 
 export const HOME = 'Home';
-export const SHOP = 'Boutique';
-export const CHAT = 'Conversation';
-export const SETTINGS = 'Paramètres';
 
-//export const HOME_NAVIGATOR = 'HomeNavigator';
+export const SHOP = 'Boutique';
+export const ADDITEM = 'Nouvel objet';
+
+export const CHAT = 'Conversation';
+
+export const SETTINGS = 'Paramètres';
 
 export const LOGIN = 'Login';
 export const REGISTER = 'Enregistrer';

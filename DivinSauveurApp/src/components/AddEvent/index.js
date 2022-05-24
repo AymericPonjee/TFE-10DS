@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
-import { View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CheckBox from '@react-native-community/checkbox';
 import Input from '../../components/common/Input';
@@ -13,23 +14,39 @@ import colors from '../../assets/themes/colors';
 
 import {create} from '../../context/actions/event';
 import {SECTIONS} from '../../constants/actionTypes';
+import { CALENDAR } from '../../constants/routeNames';
 
 const AddEventComponent = () => {
+  const {navigate} = useNavigation();
   const [open, setOpen] = useState(false);
-
+  const [errors, setErrors] = useState({});
   const [name, setName] = useState('');
-  const [address, setAddress] = useState();
-  const [startEvent, setStartEvent] = useState();
-  const [endEvent, setEndEvent] = useState();
+  const [address, setAddress] = useState('');
+  const [startEvent, setStartEvent] = useState('');
+  const [endEvent, setEndEvent] = useState('');
   const [selectedDateInput, setSelectedDateInput] = useState('startEvent');
   const [sections, setSections] = useState({});
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState('');
+  const [errorStartDate, setErrorStartDate] = useState(false);
+  const [errorEndDate, setErrorEndDate] = useState(false);
 
   const handleDate = date => {
     if (selectedDateInput === 'startEvent') {
-      setStartEvent(date);
-    } else {
-      setEndEvent(date);
+      if (endEvent == '') {
+        setStartEvent(date);
+      } else if (endEvent !== '' && date < endEvent) {
+        setStartEvent(date);
+      } else {
+        setErrorStartDate(true);
+      }
+    } else if (selectedDateInput === 'endEvent') {
+      if (startEvent == '') {
+        setEndEvent(date);
+      } else if (startEvent !== '' && date > startEvent) {
+        setEndEvent(date);
+      } else {
+        setErrorEndDate(true);
+      }
     }
   };
 
@@ -40,25 +57,68 @@ const AddEventComponent = () => {
   };
 
   const handleSubmit = () => {
+    checkErrors().then(resp => {
+      if (Object.keys(resp).length == 0) {
+        const arrayOfSections = getArrayOfSections();
+
+        const event = {
+          name: name,
+          address: address,
+          beginAt: startEvent,
+          endAt: endEvent,
+          section: arrayOfSections,
+          comment: description,
+        };
+
+        return create(event)
+          .then(resp => {
+            if(resp){
+              window.alert("good job")
+            }
+          })
+          .then(() => navigate(CALENDAR))
+          .catch(err => console.log('err =>', err.status));
+      }
+    });
+  };
+
+  const checkErrors = () => {
+    const err = {};
+    if (!name || name === '') {
+      err['name'] = "Veuillez entrer un nom pour l'évènement";
+    }
+    if (!address || address === '') {
+      err['address'] = "Veuillez entrer une adresse pour l'évènement";
+    }
+    if (!startEvent || startEvent === '') {
+      err['startEvent'] = "Veuillez entrer une startEvent pour l'évènement";
+    }
+    if (!endEvent || endEvent == '') {
+      err['endEvent'] = "Veuillez entrer une endEvent pour l'évènement";
+    }
+
+    const arrayOfSections = getArrayOfSections();
+
+    if (arrayOfSections.length == 0) {
+      err['sections'] = "Veuillez entrer une sections pour l'évènement";
+    }
+    if (!description || description === '') {
+      err['description'] = "Veuillez entrer une description pour l'évènement";
+    }
+    console.log('err ->', err);
+    //return Promise.resolve(setErrors(err));
+    setErrors(err);
+    return Promise.resolve(err);
+  };
+
+  const getArrayOfSections = () => {
     const arrayOfSections = [];
     Object.entries(sections).forEach(([key, value]) => {
       if (value == true) {
         arrayOfSections.push(key);
       }
     });
-
-    const event = {
-      name: name,
-      address: address,
-      beginAt: startEvent,
-      endAt: endEvent,
-      section: arrayOfSections,
-      comment: description,
-    };
-    
-    return create(event)
-      .then(resp => console.log('resp =>', resp))
-      .catch(err => console.log('err =>', err.status));
+    return arrayOfSections;
   };
 
   return (
@@ -80,7 +140,6 @@ const AddEventComponent = () => {
         }}
         locale="fr-BE"
         minimumDate={new Date()}
-        Com
       />
 
       <View style={styles.form}>
@@ -88,7 +147,13 @@ const AddEventComponent = () => {
           type="text"
           name="name"
           value={name}
-          onChangeText={v => setName(v)}
+          onChangeText={value => {
+            if (!value || value == '') {
+              setName(undefined);
+            } else {
+              setName(value);
+            }
+          }}
           placeholder="Nom de l'évènement*"
           icon={
             <Ionicons
@@ -98,12 +163,25 @@ const AddEventComponent = () => {
             />
           }
           iconPosition="right"
+          error={
+            name === undefined
+              ? 'Ce champ est obligatoire'
+              : errors['name']
+              ? errors['name']
+              : undefined
+          }
         />
         <Input
           type="text"
           name="address"
           value={address}
-          onChangeText={v => setAddress(v)}
+          onChangeText={value => {
+            if (!value || value == '') {
+              setAddress(undefined);
+            } else {
+              setAddress(value);
+            }
+          }}
           placeholder="Adresse de l'évènement*"
           icon={
             <Ionicons
@@ -113,12 +191,20 @@ const AddEventComponent = () => {
             />
           }
           iconPosition="right"
+          error={
+            address === undefined
+              ? 'Ce champ est obligatoire'
+              : errors['address']
+              ? errors['address']
+              : undefined
+          }
         />
 
         <TouchableOpacity
           onPress={() => {
             setSelectedDateInput('startEvent');
             setOpen(true);
+            setErrorStartDate(false);
           }}>
           <Input
             type="text"
@@ -134,6 +220,13 @@ const AddEventComponent = () => {
               />
             }
             iconPosition="right"
+            error={
+              errorStartDate == true
+                ? 'Date invalide !'
+                : errors['startEvent']
+                ? errors['startEvent']
+                : undefined
+            }
           />
         </TouchableOpacity>
 
@@ -141,6 +234,7 @@ const AddEventComponent = () => {
           onPress={() => {
             setSelectedDateInput('endEvent');
             setOpen(true);
+            setErrorEndDate(false);
           }}>
           <Input
             type="text"
@@ -156,10 +250,22 @@ const AddEventComponent = () => {
               />
             }
             iconPosition="right"
+            error={
+              errorEndDate == true
+                ? 'Date invalide !'
+                : errors['endEvent']
+                ? errors['endEvent']
+                : undefined
+            }
           />
         </TouchableOpacity>
 
-        <View style={styles.checkBoxContainer}>
+        <View
+          style={
+            errors['sections'] != undefined
+              ? styles.checkBoxContainerError
+              : styles.checkBoxContainer
+          }>
           {SECTIONS.map((el, index) => (
             <View key={index} style={styles.checkBoxSection}>
               <View style={styles.checkBoxView}>
@@ -174,28 +280,57 @@ const AddEventComponent = () => {
             </View>
           ))}
         </View>
+        {errors['sections'] != undefined && (
+          <Text
+            style={{
+              color: colors.danger,
+              marginTop: -2,
+              fontSize: 12,
+              paddingBottom: 10,
+            }}>
+            {errors['sections']}
+          </Text>
+        )}
 
-        <View style={styles.textAreaContainer}>
+        <View
+          style={
+            errors['description'] != undefined
+              ? styles.checkBoxContainerError
+              : styles.textAreaContainer
+          }>
           <TextInput
             type="text"
             name="description"
+            onSubmitEditing={() =>
+              setErrors({...errors, description: undefined})
+            }
             value={description}
             style={styles.textArea}
-            placeholder="Description de l'évènement"
+            placeholder="Description de l'évènement*"
             placeholderTextColor={colors.lightBlue}
             numberOfLines={20}
             multiline={true}
-            icon={
-              <Ionicons
-                name={'chatbox-outline'}
-                size={23}
-                color={'rgba(153,178,208,0.7)'}
-              />
-            }
-            iconPosition="right"
             onChangeText={v => setDescription(v)}
+            onBlur={(e) => {
+              if(e.value == undefined){
+                setErrors({...errors, description: "Ce champ est obligatoire"})
+              } else {
+                setErrors({...errors, description: undefined})
+              }
+            }}
           />
         </View>
+        {errors['description'] != undefined && (
+        <Text
+          style={{
+            color: colors.danger,
+            marginTop: -2,
+            fontSize: 12,
+            paddingBottom: 10,
+          }}>
+          {errors['description']}
+        </Text>
+        )}
 
         <CustomButton
           onPress={handleSubmit}

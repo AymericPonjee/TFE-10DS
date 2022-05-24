@@ -110,6 +110,7 @@ const RegisterComponent = ({
           <Input
             placeholder="Mail*"
             autoCorrect={false}
+            keyboardType="email-address"
             icon={
               <Ionicons
                 name={'ios-mail-outline'}

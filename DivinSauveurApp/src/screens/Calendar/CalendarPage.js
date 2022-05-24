@@ -4,9 +4,12 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CalendarComponent from '../../components/Calendar';
+import { ADDEVENT } from '../../constants/routeNames';
 
-const Calendrier = () => {
+const Calendar = () => {
   const {setOptions, toggleDrawer} = useNavigation();
+    const {navigate} = useNavigation();
+
 
   const listTab = [
     {
@@ -53,6 +56,19 @@ const Calendrier = () => {
           />
         </TouchableOpacity>
       ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            navigate(ADDEVENT);
+          }}>
+          <Ionicons
+            name="add"
+            size={35}
+            color={'rgba(255,255,255,0.6)'}
+            style={{paddingRight: 10}}
+          />
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -63,4 +79,4 @@ const Calendrier = () => {
   );
 };
 
-export default Calendrier;
+export default Calendar;

@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { View, Text, TextInput } from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import colors from '../../../assets/themes/colors';
 import styles from './styles';
 
-const Input = ({ onChangeText, style, value, label, icon, error, ...props }) => {
-
+const Input = ({onTouchCancel, onChange, onChangeText, style, value, label, icon, error, ...props}) => {
   const [focused, setFocused] = React.useState(false);
 
   const getBorderColor = () => {
-    if (error) {
+    if (error && error.length > 1) {
       return colors.danger;
     }
 
@@ -19,20 +18,24 @@ const Input = ({ onChangeText, style, value, label, icon, error, ...props }) => 
       return colors.darkGrey;
     }
   };
+
   return (
     <View style={styles.inputContainer}>
       {label && <Text>{label}</Text>}
 
-      <View style={[
-        styles.wrapper,
-        { alignItems: icon ? 'center' : 'baseline' },
-        { borderColor: getBorderColor()},
-      ]}>
+      <View
+        style={[
+          styles.wrapper,
+          {alignItems: icon ? 'center' : 'baseline'},
+          {borderColor: getBorderColor()},
+        ]}>
         <View>{icon && icon}</View>
 
         <TextInput
           style={[styles.textInput, style]}
           onChangeText={onChangeText}
+          onChange = { onChange }
+          onTouchCancel = {onTouchCancel}
           placeholderTextColor={colors.lightBlue}
           value={value}
           onFocus={() => {
@@ -44,7 +47,8 @@ const Input = ({ onChangeText, style, value, label, icon, error, ...props }) => 
           {...props}
         />
       </View>
-      {error && <Text style={styles.error}>{error}</Text>}
+
+      {error && error.length > 1 && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };

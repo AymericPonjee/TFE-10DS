@@ -1,5 +1,5 @@
 import React from 'react';
-import { View , Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../assets/themes/colors';
 
@@ -7,41 +7,27 @@ import Container from '../../components/common/Container';
 
 import styles from './styles';
 
-const DetailsEventComponent = ({}) => {
-
+const DetailsEventComponent = ({props, navigation, event}) => {
   return (
     <Container>
       <View style={styles.sectionTitre}>
-        <Text style={styles.titre}>Titre</Text>
-        <Text style={styles.date}>Date</Text>
-        <Text style={styles.lieu}>Lieu</Text>
+        <Text style={styles.titre}>{event.name}</Text>
+        <Text style={styles.date}>{event.beginAt} au {event.endAt}</Text>
+        <Text style={styles.lieu}>{event.address}</Text>
       </View>
 
       <View style={styles.sectionDescription}>
         <Text style={styles.sousTitre}>Description :</Text>
-        <Text style={styles.text}>la description de l'event</Text>
+        <Text style={styles.text}>{event.comment}</Text>
       </View>
 
       <View style={styles.sectionPresence}>
         <Text style={styles.sousTitre}>Présence :</Text>
-        <TouchableOpacity style={styles.buttonSection}>
-          <Text style={styles.textSection}>Baladins</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSection}>
-          <Text style={styles.textSection}>Mowha</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSection}>
-          <Text style={styles.textSection}>Seeonee</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSection}>
-          <Text style={styles.textSection}>Éclaireurs</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSection}>
-          <Text style={styles.textSection}>Pionniers</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSection}>
-          <Text style={styles.textSection}>Chefs</Text>
-        </TouchableOpacity>
+        {event.section.map((el, indice) => (
+          <TouchableOpacity style={styles.buttonSection} key={indice}>
+            <Text style={styles.textSection}>{el}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       <View style={styles.sectionModif}>

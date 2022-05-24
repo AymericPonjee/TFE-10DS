@@ -1,27 +1,39 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
-import {
-  ScrollView,
-  Text,
-  View,
-  ImageBackground,
-  StatusBar,
-} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import {ADDEVENT} from '../../constants/routeNames';
+import {ScrollView, Text, View, ImageBackground, StatusBar} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {DETAILSEVENT} from '../../constants/routeNames';
-
 
 import styles from './styles';
 
-const CalendarComponent = ({ listTab }) => {
+import {fetchEvents} from '../../context/actions/event';
 
+const CalenderComponent = ({listTab}) => {
   const {navigate} = useNavigation();
   const [status, setStatus] = useState('All');
-  const setStatusFilter = status=> {
-    setStatus(status)
-  }
+  const setStatusFilter = status => {
+    setStatus(status);
+  };
+
+  // array des events qu'on recup du backend
+  const [events, setEvents] = useState([]);
+
+  // Similaire à componentDidMount et componentDidUpdate :
+  useEffect(() => {
+    //fetchEvents().then(() => je traite la reponse de ma demande)
+    //             .catch(() => une exception quelconque a ete levee, lire le message d'erreur pour investiguer)
+    fetchEvents()
+      .then(resp => {
+        if (resp) {
+          setEvents(resp.data);
+        }
+      })
+      .catch(err => {
+        console.log('err =>', err);
+        window.alert('Une erreur est survenue');
+      });
+  });
 
   return (
     <ImageBackground
@@ -35,13 +47,14 @@ const CalendarComponent = ({ listTab }) => {
         </Text>
 
         <View style={styles.listTab}>
-          {listTab.map(e => (
+          {listTab.map((e, idx) => (
             <TouchableOpacity
               style={[
                 styles.btnTab,
                 status === e.status && styles.btnTabActive,
               ]}
-              onPress={() => setStatusFilter(e.status)}>
+              onPress={() => setStatusFilter(e.status)}
+              key={idx}>
               <Text style={styles.textTab}>{e.status}</Text>
             </TouchableOpacity>
           ))}
@@ -49,49 +62,21 @@ const CalendarComponent = ({ listTab }) => {
 
         <ScrollView>
           <View>
-            <TouchableOpacity
-              style={styles.listEvent}
-              onPress={() => navigate(DETAILSEVENT)}>
-              <Text style={styles.nameEvent}>Réunion</Text>
-              <Text style={styles.lieuEvent}>Local</Text>
-              <Text style={styles.dateEvent}>14 mars 2022</Text>
-              <Text style={styles.sectionEvent}>All section</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View>
-            <TouchableOpacity
-              style={styles.listEvent}
-              onPress={() => navigate(DETAILSEVENT)}>
-              <Text style={styles.nameEvent}>24h vélo</Text>
-              <Text style={styles.lieuEvent}>Bois de la Cambre</Text>
-              <Text style={styles.dateEvent}>25 mars 2022</Text>
-              <Text style={styles.sectionEvent}>Éclaireurs</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View>
-            <TouchableOpacity
-              style={styles.listEvent}
-              onPress={() => navigate(DETAILSEVENT)}>
-              <Text style={styles.nameEvent}>3HT</Text>
-              <Text style={styles.lieuEvent}>Bois de Uccle</Text>
-              <Text style={styles.dateEvent}>26 mars 2022</Text>
-              <Text style={styles.sectionEvent}>Baladins</Text>
-            </TouchableOpacity>
+            {events.map((event, indice) => (
+              <TouchableOpacity
+                style={styles.listEvent}
+                onPress={() => navigate(DETAILSEVENT, {event})}
+                key={indice}>
+                <Text style={styles.nameEvent}>{event.name}</Text>
+                <Text style={styles.lieuEvent}>{event.address}</Text>
+                <Text style={styles.dateEvent}>{event.beginAt}</Text>
+                <Text style={styles.sectionEvent}>{event.section}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </ScrollView>
-      </View>
-
-      <View style={styles.sectionBot}>
-        <TouchableOpacity
-          style={styles.addEvent}
-          primary
-          onPress={() => navigate(ADDEVENT) }>
-          <Text style={styles.add}>+</Text>
-        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
 };
-export default CalendarComponent;
+export default CalenderComponent;

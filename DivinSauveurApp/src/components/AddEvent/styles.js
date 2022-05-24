@@ -12,6 +12,9 @@ export default StyleSheet.create({
     opacity: 0.8,
     fontWeight: 'bold',
   },
+  inputError: {
+    color: colors.danger,
+  },
   form: {
     paddingTop: 10,
   },
@@ -40,10 +43,18 @@ export default StyleSheet.create({
     backgroundColor: colors.darkGrey,
     marginVertical: 10,
   },
+  checkBoxContainerError: {
+    borderRadius: 20,
+    padding: 10,
+    backgroundColor: colors.darkGrey,
+    marginVertical: 10,
+    borderColor: colors.danger,
+    borderWidth:0.5
+  },
   checkBoxSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical : 5
+    paddingVertical: 5,
   },
   labelCheckBox: {
     marginLeft: 10,

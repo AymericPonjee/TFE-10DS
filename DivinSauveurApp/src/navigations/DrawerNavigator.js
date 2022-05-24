@@ -9,31 +9,42 @@ import {
   HOME,
   SETTINGS,
   SHOP,
+  ADDITEM,
+  CALENDARSTACK,
 } from '../constants/routeNames';
 
 import SideMenu from './SideMenu';
-import Calendrier from '../screens/Calendrier';
+import CalendarPage from '../screens/Calendar/CalendarPage';
 import Boutique from '../screens/Boutique';
 import Chat from '../screens/Chat';
 import Settings from '../screens/Settings';
 import Home from '../screens/Home';
 import AddEvent from '../screens/AddEvent';
 import DetailsEvent from '../screens/DetailsEvent';
+import AddItem from '../screens/AddItem';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
-const Calendar = () => {
+const CalendarStackView = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={CALENDAR} component={Calendrier} />
+      <Stack.Screen name={CALENDAR} component={CalendarPage} />
       <Stack.Screen name={ADDEVENT} component={AddEvent} />
       <Stack.Screen name={DETAILSEVENT} component={DetailsEvent} />
     </Stack.Navigator>
   );
 };
 
+const Shop = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name={SHOP} component={Boutique} />
+      <Stack.Screen name={ADDITEM} component={AddItem} />
+    </Stack.Navigator>
+  );
+};
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -61,8 +72,8 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name={CALENDAR}
-        component={Calendar}
+        name={CALENDARSTACK}
+        component={CalendarStackView}
         options={{
           headerShown: false,
           drawerIcon: ({color}) => (
@@ -72,8 +83,9 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={SHOP}
-        component={Boutique}
+        component={Shop}
         options={{
+          headerShown: false,
           drawerIcon: ({color}) => (
             <Ionicons name="card-outline" size={22} color={color} />
           ),

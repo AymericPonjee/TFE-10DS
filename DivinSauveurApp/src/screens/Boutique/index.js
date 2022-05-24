@@ -3,10 +3,12 @@ import React from 'react';
 
 import {TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import BoutiqueComponent from '../../components/Boutique';
+import { ADDITEM } from '../../constants/routeNames';
+import BoutiqueComponent from '../../components/Shop';
 
 const Boutique = () => {
   const {setOptions, toggleDrawer} = useNavigation();
+  const {navigate} = useNavigation();
 
   React.useEffect(() => {
     setOptions({
@@ -32,9 +34,24 @@ const Boutique = () => {
           />
         </TouchableOpacity>
       ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            navigate(ADDITEM);
+          }}>
+          <Ionicons
+            name="add"
+            size={35}
+            color={'rgba(255,255,255,0.6)'}
+            style={{paddingRight: 10}}
+          />
+        </TouchableOpacity>
+      ),
     });
   }, []);
-  return <BoutiqueComponent />;
+  return (
+    <BoutiqueComponent />
+  );
 };
 
 export default Boutique;

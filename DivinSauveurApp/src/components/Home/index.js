@@ -7,7 +7,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../assets/themes/colors';
 import Container from '../../components/common/Container';
-import {CALENDAR, CHAT, SHOP} from '../../constants/routeNames';
+import {CALENDAR, CALENDARSTACK, CHAT, SHOP} from '../../constants/routeNames';
 import styles from './styles';
 
 const HomeComponent = ({}) => {
@@ -18,7 +18,7 @@ const HomeComponent = ({}) => {
       <View style={{paddingTop: 100}}>
         <TouchableOpacity
           style={styles.CustomButton}
-          onPress={() => navigate(CALENDAR)}>
+          onPress={() => navigate(CALENDARSTACK)}>
           <Ionicons
             name="calendar-outline"
             size={28}
@@ -30,10 +30,7 @@ const HomeComponent = ({}) => {
         <TouchableOpacity
           style={styles.CustomButton}
           onPress={() => navigate(SHOP)}>
-          <Ionicons 
-            name="card-outline" 
-            size={28} 
-            color={colors.lightGrey} />
+          <Ionicons name="card-outline" size={28} color={colors.lightGrey} />
           <Text style={styles.CustomText}>Boutique</Text>
         </TouchableOpacity>
 
