@@ -106,7 +106,6 @@ const AddEventComponent = () => {
       err['description'] = "Veuillez entrer une description pour l'évènement";
     }
     console.log('err ->', err);
-    //return Promise.resolve(setErrors(err));
     setErrors(err);
     return Promise.resolve(err);
   };

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 import {ScrollView, Text, View, ImageBackground, StatusBar} from 'react-native';
@@ -7,33 +7,12 @@ import {DETAILSEVENT} from '../../constants/routeNames';
 
 import styles from './styles';
 
-import {fetchEvents} from '../../context/actions/event';
-
-const CalenderComponent = ({listTab}) => {
+const CalenderComponent = ({listTab, events}) => {
   const {navigate} = useNavigation();
   const [status, setStatus] = useState('All');
   const setStatusFilter = status => {
     setStatus(status);
   };
-
-  // array des events qu'on recup du backend
-  const [events, setEvents] = useState([]);
-
-  // Similaire à componentDidMount et componentDidUpdate :
-  useEffect(() => {
-    //fetchEvents().then(() => je traite la reponse de ma demande)
-    //             .catch(() => une exception quelconque a ete levee, lire le message d'erreur pour investiguer)
-    fetchEvents()
-      .then(resp => {
-        if (resp) {
-          setEvents(resp.data);
-        }
-      })
-      .catch(err => {
-        console.log('err =>', err);
-        window.alert('Une erreur est survenue');
-      });
-  });
 
   return (
     <ImageBackground

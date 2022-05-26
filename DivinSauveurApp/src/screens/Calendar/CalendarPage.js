@@ -1,15 +1,17 @@
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
 
 import {TouchableOpacity} from 'react-native';
+import { ADDEVENT } from '../../constants/routeNames';
+import {fetchEvents} from '../../context/actions/event';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CalendarComponent from '../../components/Calendar';
-import { ADDEVENT } from '../../constants/routeNames';
+
 
 const Calendar = () => {
   const {setOptions, toggleDrawer} = useNavigation();
-    const {navigate} = useNavigation();
-
+  const {navigate} = useNavigation();
 
   const listTab = [
     {
@@ -72,11 +74,26 @@ const Calendar = () => {
     });
   }, []);
 
-  return (
-    <CalendarComponent 
-      listTab={listTab}
-    />
-  );
+  // array des events qu'on recup du backend
+  const [events, setEvents] = useState([]);
+
+  // Similaire à componentDidMount et componentDidUpdate :
+  useEffect(() => {
+    //fetchEvents().then(() => je traite la reponse de ma demande)
+    //             .catch(() => une exception quelconque a ete levee, lire le message d'erreur pour investiguer)
+    fetchEvents()
+      .then(resp => {
+        if (resp) {
+          setEvents(resp.data);
+        }
+      })
+      .catch(err => {
+        console.log('err =>', err);
+        window.alert('Une erreur est survenue');
+      });
+  });
+
+  return <CalendarComponent listTab={listTab} events={events}/>;
 };
 
 export default Calendar;
