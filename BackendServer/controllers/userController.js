@@ -18,6 +18,7 @@ router.get("/", (req, res) => {
 
 //Login route
 router.post("/login", (req, res) => {
+  console.log(`[Login]: tentative de connexion { mail: ${req.body.mail} }`)
   const myPlaintextPassword = req.body.password;
 
   User.findOne({ mail: req.body.mail })

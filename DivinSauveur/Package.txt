@@ -1,0 +1,42 @@
+NAVIGATION :
+
+yarn add react-native-reanimated
+yarn add react-native-gesture-handler
+yarn add @react-navigation/native
+yarn add react-native-screens react-native-safe-area-context
+yarn add @react-navigation/stack
+yarn add @react-navigation/drawer
+
+--------------------------------------
+
+MANAGING ENVIRONMENT :
+
+yarn add dotenv
+
+--------------------------------------
+
+AXIOS : 
+
+yarn add axios
+yarn add @react-native-async-storage/async-storage
+
+--------------------------------------
+
+ICONS : 
+
+yarn add react-native-vector-icons
+
+--------------------------------------
+
+DATE PICKER
+
+yarn add react-native-modal-datetime-picker 
+yarn add @react-native-community/datetimepicker
+
+--------------------------------------
+
+CHECKBOX
+
+yarn add @react-native-community/checkbox
+
+--------------------------------------
