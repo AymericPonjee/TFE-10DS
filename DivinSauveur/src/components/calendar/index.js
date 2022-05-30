@@ -6,12 +6,34 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {DETAILSEVENT} from '../../constants/routeNames';
 
 import styles from './styles';
+import Colors from '../../assets/themes/Colors';
 
-const CalenderComponent = ({listTab, events}) => {
+
+const CalenderComponent = ({sections, events}) => {
   const {navigate} = useNavigation();
   const [status, setStatus] = useState('All');
   const setStatusFilter = status => {
     setStatus(status);
+  };
+
+  const generateLogo = (title, color) => {
+    return (
+      <View
+        style={{
+          borderRadius: 50,
+          width: 16,
+          height: 16,
+          alignItems: 'center',
+          backgroundColor: color,
+        }}>
+        <Text
+          style={{
+            color: Colors.white,
+          }}>
+          {title}
+        </Text>
+      </View>
+    );
   };
 
   return (
@@ -26,15 +48,12 @@ const CalenderComponent = ({listTab, events}) => {
         </Text>
 
         <View style={styles.listTab}>
-          {listTab.map((e, idx) => (
+          {Object.keys(sections).map((e, idx) => (
             <TouchableOpacity
-              style={[
-                styles.btnTab,
-                status === e.status && styles.btnTabActive,
-              ]}
-              onPress={() => setStatusFilter(e.status)}
+              style={[styles.btnTab, status === e && styles.btnTabActive]}
+              onPress={() => setStatusFilter(e)}
               key={idx}>
-              <Text style={styles.textTab}>{e.status}</Text>
+              <Text style={styles.textTab}>{e}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -48,8 +67,17 @@ const CalenderComponent = ({listTab, events}) => {
                 key={indice}>
                 <Text style={styles.nameEvent}>{event.name}</Text>
                 <Text style={styles.lieuEvent}>{event.address}</Text>
-                <Text style={styles.dateEvent}>{event.beginAt}</Text>
-                <Text style={styles.sectionEvent}>{event.section}</Text>
+                <Text style={styles.dateEvent}>
+                  {new Date(event.beginAt).toLocaleDateString()} 
+                </Text>
+                <Text style={styles.sectionEvent}>
+                  {event.section.map(el => {
+                    return generateLogo(
+                      sections[el].logo,
+                      sections[el].iconColor,
+                    );
+                  })}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>

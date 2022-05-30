@@ -7,32 +7,38 @@ import {fetchEvents} from '../../context/actions/event';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CalendarComponent from '../../components/calendar';
+import Colors from '../../assets/themes/Colors';
 
+const SECTIONS = {
+  Chefs: {
+    iconColor: Colors.danger,
+    logo: 'C',
+  },
+  Baladins: {
+    iconColor: Colors.darkBlue,
+    logo: 'B',
+  },
+  Mowha: {
+    iconColor: Colors.lightBlue,
+    logo: 'M',
+  },
+  Seeonee: {
+    iconColor: Colors.lightGrey,
+    logo: 'S',
+  },
+  Éclaireurs: {
+    iconColor: Colors.success,
+    logo: 'E',
+  },
+  Pionniers: {
+    iconColor: Colors.danger,
+    logo: 'P',
+  },
+};
 
 const Calendar = () => {
   const {setOptions, toggleDrawer} = useNavigation();
   const {navigate} = useNavigation();
-
-  const listTab = [
-    {
-      status: 'All',
-    },
-    {
-      status: 'Baladins',
-    },
-    {
-      status: 'Mowha',
-    },
-    {
-      status: 'Seeonee',
-    },
-    {
-      status: 'Éclaireurs',
-    },
-    {
-      status: 'Pionniers',
-    },
-  ];
 
   React.useEffect(() => {
     setOptions({
@@ -93,7 +99,7 @@ const Calendar = () => {
       });
   });
 
-  return <CalendarComponent listTab={listTab} events={events}/>;
+  return <CalendarComponent sections={SECTIONS} events={events}/>;
 };
 
 export default Calendar;

@@ -67,6 +67,7 @@ export default StyleSheet.create({
     paddingRight: 20,
     bottom: 10,
     alignSelf: 'flex-end',
+    
   },
   sectionBot: {
     padding: 10,
