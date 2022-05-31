@@ -3,6 +3,7 @@ export const CALENDARSTACK = 'Calendrier';
 
 export const ADDEVENT = 'Nouvel évènement';
 export const DETAILSEVENT = "Détails";
+export const ANIMELIST = "Présence";
 
 export const HOME = 'Home';
 

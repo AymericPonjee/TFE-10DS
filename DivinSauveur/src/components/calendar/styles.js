@@ -41,8 +41,8 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.25)',
     padding: 5,
     paddingLeft: 20,
-    height: 60,
-    marginVertical: 8
+    height: 65,
+    marginVertical: 8,
   },
   nameEvent: {
     color: colors.darkBlue,
@@ -54,8 +54,9 @@ export default StyleSheet.create({
     fontSize: 15,
   },
   dateEvent: {
+    fontWeight: 'bold',
     color: colors.white,
-    fontSize: 20,
+    fontSize: 22,
     position: 'absolute',
     paddingTop: 10,
     paddingRight: 20,
@@ -65,9 +66,8 @@ export default StyleSheet.create({
     color: colors.white,
     position: 'absolute',
     paddingRight: 20,
-    bottom: 10,
+    bottom: 0,
     alignSelf: 'flex-end',
-    
   },
   sectionBot: {
     padding: 10,

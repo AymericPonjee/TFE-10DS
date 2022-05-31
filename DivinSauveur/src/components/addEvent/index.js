@@ -208,7 +208,17 @@ const AddEventComponent = () => {
           <Input
             type="text"
             name="startEvent"
-            value={startEvent ? new Date(startEvent).toLocaleString() : ''}
+            value={
+              startEvent
+                ? new Date(startEvent).toLocaleString('fr', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : ''
+            }
             placeholder="Début de l'évènement*"
             pointerEvents="none"
             icon={
@@ -238,7 +248,17 @@ const AddEventComponent = () => {
           <Input
             type="text"
             name="endEvent"
-            value={endEvent ? new Date(endEvent).toLocaleString() : ''}
+            value={
+              endEvent
+                ? new Date(endEvent).toLocaleString('fr', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : ''
+            }
             placeholder="Fin de l'évènement*"
             pointerEvents="none"
             icon={
@@ -310,25 +330,25 @@ const AddEventComponent = () => {
             numberOfLines={20}
             multiline={true}
             onChangeText={v => setDescription(v)}
-            onBlur={(e) => {
-              if(e.value == undefined){
-                setErrors({...errors, description: "Ce champ est obligatoire"})
+            onBlur={e => {
+              if (e.value == undefined) {
+                setErrors({...errors, description: 'Ce champ est obligatoire'});
               } else {
-                setErrors({...errors, description: undefined})
+                setErrors({...errors, description: undefined});
               }
             }}
           />
         </View>
         {errors['description'] != undefined && (
-        <Text
-          style={{
-            color: colors.danger,
-            marginTop: -2,
-            fontSize: 12,
-            paddingBottom: 10,
-          }}>
-          {errors['description']}
-        </Text>
+          <Text
+            style={{
+              color: colors.danger,
+              marginTop: -2,
+              fontSize: 12,
+              paddingBottom: 10,
+            }}>
+            {errors['description']}
+          </Text>
         )}
 
         <CustomButton

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Colors from '../../assets/themes/Colors';
 import colors from '../../assets/themes/Colors';
 
 export default StyleSheet.create({
@@ -11,16 +12,23 @@ export default StyleSheet.create({
     borderWidth: 2,
   },
   titre: {
-    fontSize: 20,
+    fontSize: 22,
     paddingBottom: 10,
     color: 'white',
     opacity: 0.8,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  lieu: {},
-  date: {},
-
+  date: {
+    color: 'white',
+    fontSize: 16
+  },
+  lieu: {
+    color: Colors.darkBlue, 
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingTop:5
+  },
   sectionDescription: {
     marginTop: 10,
     padding: 10,
@@ -30,7 +38,7 @@ export default StyleSheet.create({
     borderWidth: 2,
   },
   sousTitre: {
-    fontSize: 16,
+    fontSize: 18,
     paddingBottom: 10,
     color: 'white',
     opacity: 0.8,

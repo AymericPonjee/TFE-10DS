@@ -20,18 +20,24 @@ const CalenderComponent = ({sections, events}) => {
     return (
       <View
         style={{
-          borderRadius: 50,
-          width: 16,
-          height: 16,
-          alignItems: 'center',
-          backgroundColor: color,
+          paddingHorizontal: 2,
         }}>
-        <Text
+        <View
           style={{
-            color: Colors.white,
+            borderRadius: 50,
+            width: 20,
+            height: 20,
+            alignItems: 'center',
+            backgroundColor: color,
+            paddingTop:2,
           }}>
-          {title}
-        </Text>
+          <Text
+            style={{
+              color: Colors.white,
+            }}>
+            {title}
+          </Text>
+        </View>
       </View>
     );
   };
@@ -68,7 +74,7 @@ const CalenderComponent = ({sections, events}) => {
                 <Text style={styles.nameEvent}>{event.name}</Text>
                 <Text style={styles.lieuEvent}>{event.address}</Text>
                 <Text style={styles.dateEvent}>
-                  {new Date(event.beginAt).toLocaleDateString()} 
+                  {new Date(event.beginAt).toLocaleDateString('fr')} 
                 </Text>
                 <Text style={styles.sectionEvent}>
                   {event.section.map(el => {

@@ -1,18 +1,41 @@
 import React from 'react';
+import {useNavigation} from '@react-navigation/core';
+
 import {View, Text, TouchableOpacity} from 'react-native';
+import {ANIMELIST} from '../../constants/routeNames';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../assets/themes/Colors';
-
 import Container from '../common/Container';
-
 import styles from './styles';
 
-const DetailsEventComponent = ({props, navigation, event}) => {
+const DetailsEventComponent = ({event}) => {
+  const {navigate} = useNavigation();
+
   return (
     <Container>
       <View style={styles.sectionTitre}>
         <Text style={styles.titre}>{event.name}</Text>
-        <Text style={styles.date}>{event.beginAt} au {event.endAt}</Text>
+        <Text style={styles.date}>
+          Début : {''}
+          {new Date(event.beginAt).toLocaleString('fr', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+        </Text>
+        <Text style={styles.date}>
+          Fin : {''}
+          {new Date(event.endAt).toLocaleString('fr', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+        </Text>
         <Text style={styles.lieu}>{event.address}</Text>
       </View>
 
@@ -24,7 +47,10 @@ const DetailsEventComponent = ({props, navigation, event}) => {
       <View style={styles.sectionPresence}>
         <Text style={styles.sousTitre}>Présence :</Text>
         {event.section.map((el, indice) => (
-          <TouchableOpacity style={styles.buttonSection} key={indice}>
+          <TouchableOpacity
+            style={styles.buttonSection}
+            key={indice}
+            onPress={() => navigate(ANIMELIST)}>
             <Text style={styles.textSection}>{el}</Text>
           </TouchableOpacity>
         ))}

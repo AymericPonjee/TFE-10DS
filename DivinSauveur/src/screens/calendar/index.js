@@ -10,29 +10,29 @@ import CalendarComponent from '../../components/calendar';
 import Colors from '../../assets/themes/Colors';
 
 const SECTIONS = {
-  Chefs: {
-    iconColor: Colors.danger,
-    logo: 'C',
-  },
   Baladins: {
-    iconColor: Colors.darkBlue,
+    iconColor: Colors.baladins,
     logo: 'B',
   },
   Mowha: {
-    iconColor: Colors.lightBlue,
+    iconColor: Colors.loups,
     logo: 'M',
   },
   Seeonee: {
-    iconColor: Colors.lightGrey,
+    iconColor: Colors.loups,
     logo: 'S',
   },
   Éclaireurs: {
-    iconColor: Colors.success,
+    iconColor: Colors.eclaireurs,
     logo: 'E',
   },
   Pionniers: {
     iconColor: Colors.danger,
     logo: 'P',
+  },
+  Chefs: {
+    iconColor: Colors.chefs,
+    logo: 'C',
   },
 };
 
