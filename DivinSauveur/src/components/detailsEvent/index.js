@@ -1,16 +1,44 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 
-import {View, Text, TouchableOpacity} from 'react-native';
-import {ANIMELIST} from '../../constants/routeNames';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {ANIMELIST, CALENDAR, UPDATEEVENT} from '../../constants/routeNames';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../assets/themes/Colors';
 import Container from '../common/Container';
 import styles from './styles';
+import { deleteEvent, updateEvent } from '../../context/actions/event';
 
 const DetailsEventComponent = ({event}) => {
+
+  
   const {navigate} = useNavigation();
+
+  const handleDelete = () => {
+    Alert.alert(
+      'Attention',
+      'Êtes-vous sûr de vouloir supprimer ' + event.name + ' ?',
+      [
+        {
+          text: 'Oui',
+          onPress: () =>
+            deleteEvent(event._id)
+              .then(res => {
+                if (res) {
+                  navigate(CALENDAR);
+                }
+              })
+              .catch(err => console.log('err delete',err)),
+        },
+        {
+          text: 'Non',
+          //style: color.colors.danger,
+        },
+      ],
+    );
+    
+  }
 
   return (
     <Container>
@@ -57,7 +85,9 @@ const DetailsEventComponent = ({event}) => {
       </View>
 
       <View style={styles.sectionModif}>
-        <TouchableOpacity style={styles.buttonModif}>
+        <TouchableOpacity
+          style={styles.buttonModif}
+          onPress={() => navigate(UPDATEEVENT, {event})}>
           <Ionicons
             name="ios-create-outline"
             size={23}
@@ -65,7 +95,9 @@ const DetailsEventComponent = ({event}) => {
           />
           <Text style={styles.modif}>Modifier</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSupp}>
+        <TouchableOpacity
+          style={styles.buttonSupp}
+          onPress={() => handleDelete()}>
           <Ionicons name="close-outline" size={25} color={colors.danger} />
           <Text style={styles.supp}>Supprimer</Text>
         </TouchableOpacity>

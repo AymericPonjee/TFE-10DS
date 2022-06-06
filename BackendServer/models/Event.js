@@ -1,14 +1,5 @@
 const mongoose = require("mongoose");
-const { required } = require("nodemon/lib/config");
-
-const SECTIONS = [
-  "Baladins",
-  "Mowha",
-  "Seeonee",
-  "Éclaireurs",
-  "Pionniers",
-  "Chefs",
-];
+const SECTIONS = require("../utils/constants");
 
 const EventSchema = mongoose.Schema({
   name: { type: String, required: true },

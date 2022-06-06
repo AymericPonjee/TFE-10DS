@@ -16,7 +16,7 @@ import {create} from '../../context/actions/event';
 import {SECTIONS} from '../../constants/actionTypes';
 import { CALENDAR } from '../../constants/routeNames';
 
-const AddEventComponent = () => {
+const UpdateEventComponent = ({event}) => {
   const {navigate} = useNavigation();
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({});
@@ -29,6 +29,7 @@ const AddEventComponent = () => {
   const [description, setDescription] = useState('');
   const [errorStartDate, setErrorStartDate] = useState(false);
   const [errorEndDate, setErrorEndDate] = useState(false);
+
 
   const handleDate = date => {
     if (selectedDateInput === 'startEvent') {
@@ -145,7 +146,7 @@ const AddEventComponent = () => {
         <Input
           type="text"
           name="name"
-          value={name}
+          value={event.name}
           onChangeText={value => {
             if (!value || value == '') {
               setName(undefined);
@@ -173,7 +174,7 @@ const AddEventComponent = () => {
         <Input
           type="text"
           name="address"
-          value={address}
+          value={event.address}
           onChangeText={value => {
             if (!value || value == '') {
               setAddress(undefined);
@@ -361,4 +362,4 @@ const AddEventComponent = () => {
   );
 };
 
-export default AddEventComponent;
+export default UpdateEventComponent;

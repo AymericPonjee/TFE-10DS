@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 import {TouchableOpacity} from 'react-native';
-import { ADDEVENT } from '../../constants/routeNames';
+import {ADDEVENT} from '../../constants/routeNames';
 import {fetchEvents} from '../../context/actions/event';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -35,12 +35,34 @@ const SECTIONS = {
     logo: 'C',
   },
 };
+ 
+const getArrayOfSections = dictionary => {
+   const arrayOfSections = [];
+   Object.entries(dictionary).forEach(([key, value]) => {
+     if (value == true) {
+       arrayOfSections.push(key);
+     }
+   });
+   return arrayOfSections;
+ };
 
 const Calendar = () => {
   const {setOptions, toggleDrawer} = useNavigation();
   const {navigate} = useNavigation();
 
-  React.useEffect(() => {
+  // array des events qu'on recup du backend
+  const [events, setEvents] = useState([]);
+  const [combinedStatus, setCombinedStatus] = useState({});
+
+  // Similaire à componentDidMount et componentDidUpdate :
+  useEffect(() => {
+    //fetchEvents().then(() => je traite la reponse de ma demande)
+    //             .catch(() => une exception quelconque a ete levee, lire le message d'erreur pour investiguer
+    const selectedSections = getArrayOfSections(combinedStatus);
+    filterEventsBySections(selectedSections);
+  });
+
+  useEffect(() => {
     setOptions({
       headerTransparent: true,
       headerStyle: {
@@ -80,14 +102,9 @@ const Calendar = () => {
     });
   }, []);
 
-  // array des events qu'on recup du backend
-  const [events, setEvents] = useState([]);
-
-  // Similaire à componentDidMount et componentDidUpdate :
-  useEffect(() => {
-    //fetchEvents().then(() => je traite la reponse de ma demande)
-    //             .catch(() => une exception quelconque a ete levee, lire le message d'erreur pour investiguer)
-    fetchEvents()
+  const filterEventsBySections = chooseSections => {
+    const params = {section: chooseSections};
+    fetchEvents(params)
       .then(resp => {
         if (resp) {
           setEvents(resp.data);
@@ -97,9 +114,16 @@ const Calendar = () => {
         console.log('err =>', err);
         window.alert('Une erreur est survenue');
       });
-  });
+  };
 
-  return <CalendarComponent sections={SECTIONS} events={events}/>;
+  return (
+    <CalendarComponent
+      setCombinedStatus={setCombinedStatus}
+      combinedStatus={combinedStatus}
+      sections={SECTIONS}
+      events={events}
+    />
+  );
 };
 
 export default Calendar;

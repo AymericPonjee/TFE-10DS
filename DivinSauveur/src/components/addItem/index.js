@@ -73,7 +73,7 @@ const AddItemComponent = () => {
               setName(value);
             }
           }}
-          placeholder="Nom de l'objet*"
+          placeholder="Nom de l'article*"
           icon={
             <Ionicons
               name={'md-create-outline'}
@@ -102,10 +102,10 @@ const AddItemComponent = () => {
               setPrice(value);
             }
           }}
-          placeholder="Prix de l'objet*"
+          placeholder="Prix de l'article*"
           icon={
             <Ionicons
-              name={'ios-location-outline'}
+              name={'ios-pricetag-outline'}
               size={23}
               color={'rgba(153,178,208,0.7)'}
             />
@@ -133,18 +133,18 @@ const AddItemComponent = () => {
             }
             value={description}
             style={styles.textArea}
-            placeholder="Description de l'évènement*"
+            placeholder="Description de l'article*"
             placeholderTextColor={colors.lightBlue}
             numberOfLines={20}
             multiline={true}
             onChangeText={v => setDescription(v)}
-            error={
-              description === undefined
-                ? 'Ce champ est obligatoire'
-                : errors['description']
-                ? errors['description']
-                : undefined
-            }
+            onBlur={e => {
+              if (e.value == undefined) {
+                setErrors({...errors, description: 'Ce champ est obligatoire'});
+              } else {
+                setErrors({...errors, description: undefined});
+              }
+            }}
           />
         </View>
         {errors['description'] != undefined && (
@@ -158,7 +158,6 @@ const AddItemComponent = () => {
             {errors['description']}
           </Text>
         )}
-
         <Input
           type="text"
           name="image"
@@ -170,17 +169,17 @@ const AddItemComponent = () => {
               setImage(value);
             }
           }}
-          placeholder="image de l'objet*"
+          placeholder="Image de l'article*"
           icon={
             <Ionicons
-              name={'md-create-outline'}
+              name={'md-image-outline'}
               size={23}
               color={'rgba(153,178,208,0.7)'}
             />
           }
           iconPosition="right"
           error={
-            name === undefined
+            image === undefined
               ? 'Ce champ est obligatoire !'
               : errors['image']
               ? errors['image']

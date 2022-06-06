@@ -1,17 +1,17 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
+import {useNavigation} from '@react-navigation/core';
 
 import {TouchableOpacity} from 'react-native';
+import {SHOP} from '../../constants/routeNames';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DetailsItemComponent from '../../components/detailsItem';
 
-import DetailsEventComponent from '../../components/detailsEvent';
-import {CALENDAR} from '../../constants/routeNames';
-
-const DetailsEvent = (props) => {
+const DetailsItem = props => {
   const {setOptions, navigate} = useNavigation();
 
-  const { navigation } = props;
-  const { route } = props;
+  const {navigation} = props;
+  const {route} = props;
 
   React.useEffect(() => {
     setOptions({
@@ -25,7 +25,7 @@ const DetailsEvent = (props) => {
         fontSize: 26,
       },
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigate(CALENDAR)}>
+        <TouchableOpacity onPress={() => navigate(SHOP)}>
           <Ionicons
             name="chevron-back"
             size={35}
@@ -36,7 +36,8 @@ const DetailsEvent = (props) => {
       ),
     });
   }, []);
-  return <DetailsEventComponent event={route.params.event} />;
+
+  return <DetailsItemComponent/>;
 };
 
-export default DetailsEvent;
+export default DetailsItem;

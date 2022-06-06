@@ -10,25 +10,27 @@ export default StyleSheet.create({
     borderRadius: 20,
     borderColor: colors.lightBlue,
     borderWidth: 2,
+    alignItems: 'center',
+  },
+  img: {
+    borderRadius: 10,
   },
   titre: {
-    fontSize: 22,
-    paddingBottom: 10,
+    fontSize: 24,
+    paddingTop: 15,
     color: 'white',
     opacity: 0.8,
     fontWeight: 'bold',
-    textAlign: 'center',
+    alignSelf: 'flex-start',
   },
-  date: {
-    color: 'white',
-    fontSize: 16,
-  },
-  lieu: {
+  prix: {
+    fontSize: 24,
+    paddingVertical: 5,
     color: Colors.darkBlue,
-    fontSize: 18,
     fontWeight: 'bold',
-    paddingTop: 5,
+    alignSelf: 'flex-start',
   },
+
   sectionDescription: {
     marginTop: 10,
     padding: 10,
@@ -45,8 +47,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   text: {},
-
-  sectionPresence: {
+  sectionAjout: {
     marginTop: 10,
     padding: 10,
     backgroundColor: 'rgba(255,255,255,0.25)',
@@ -54,17 +55,18 @@ export default StyleSheet.create({
     borderColor: colors.lightBlue,
     borderWidth: 2,
   },
-  buttonSection: {
-    justifyContent: 'center',
-    padding: 10,
-    marginVertical: 5,
+  buttonAjout: {
+    paddingVertical: 10,
     borderRadius: 20,
     backgroundColor: colors.darkBlue,
+    justifyContent: 'center',
     flexDirection: 'row',
   },
-  textSection: {
-    color: colors.lightGrey,
-    fontWeight: 'bold',
+  ajout: {
+    fontWeight: '400',
+    fontSize: 18,
+    color: colors.success,
+    paddingLeft:5
   },
   sectionModif: {
     marginTop: 10,

@@ -48,10 +48,12 @@ export default StyleSheet.create({
     color: colors.darkBlue,
     fontSize: 25,
     fontWeight: 'bold',
+    width: 175,
   },
   lieuEvent: {
     color: colors.white,
     fontSize: 15,
+    width: 175,
   },
   dateEvent: {
     fontWeight: 'bold',
@@ -66,7 +68,7 @@ export default StyleSheet.create({
     color: colors.white,
     position: 'absolute',
     paddingRight: 20,
-    bottom: 0,
+    bottom: 2,
     alignSelf: 'flex-end',
   },
   sectionBot: {

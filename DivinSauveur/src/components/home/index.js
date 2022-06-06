@@ -7,7 +7,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../assets/themes/Colors';
 import Container from '../common/Container';
-import {CALENDAR, CALENDARSTACK, CHAT, SHOP} from '../../constants/routeNames';
+import {CALENDARSTACK, CHAT, SHOPSTACK} from '../../constants/routeNames';
 import styles from './styles';
 
 const HomeComponent = ({}) => {
@@ -29,7 +29,7 @@ const HomeComponent = ({}) => {
 
         <TouchableOpacity
           style={styles.CustomButton}
-          onPress={() => navigate(SHOP)}>
+          onPress={() => navigate(SHOPSTACK)}>
           <Ionicons name="card-outline" size={28} color={colors.lightGrey} />
           <Text style={styles.CustomText}>Boutique</Text>
         </TouchableOpacity>

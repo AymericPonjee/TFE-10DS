@@ -1,12 +1,16 @@
 import React from 'react';
+import {useNavigation} from '@react-navigation/core';
 
 import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {DETAILSITEM} from '../../constants/routeNames';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Container from '../common/Container';
 import styles from './styles';
 
 const BoutiqueComponent = ({}) => {
+  const {setOptions, navigate} = useNavigation();
+
   return (
     <Container style={{paddingTop: 100}}>
       <Text style={styles.title}>
@@ -15,7 +19,7 @@ const BoutiqueComponent = ({}) => {
       <View>
         <TouchableOpacity
           style={styles.list}
-          // onPress={() => navigate(DETAILSITEMS)}
+          onPress={() => navigate(DETAILSITEM)}
         >
           <Image
             style={styles.img}
@@ -37,7 +41,7 @@ const BoutiqueComponent = ({}) => {
       <View>
         <TouchableOpacity
           style={styles.list}
-          // onPress={() => navigate(DETAILSITEMS)}
+          onPress={() => navigate(DETAILSITEM)}
         >
           <Image
             style={styles.img}
@@ -45,7 +49,7 @@ const BoutiqueComponent = ({}) => {
           />
           <View>
             <Text style={styles.nameItems}>Foulard</Text>
-            <Text style={styles.priceItems}>20€</Text>
+            <Text style={styles.priceItems}>10€</Text>
           </View>
           <Ionicons
             name="chevron-forward"

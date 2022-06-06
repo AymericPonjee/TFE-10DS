@@ -1,18 +1,18 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 
+import {useNavigation} from '@react-navigation/core';
 import {TouchableOpacity} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import DetailsEventComponent from '../../components/detailsEvent';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import UpdateEventComponent from '../../components/updateEvent';
+
 import {CALENDAR} from '../../constants/routeNames';
 
-const DetailsEvent = (props) => {
+const UpdateEvent = (props) => {
   const {setOptions, navigate} = useNavigation();
 
-  const { navigation } = props;
-  const { route } = props;
 
+  
   React.useEffect(() => {
     setOptions({
       headerTransparent: true,
@@ -36,7 +36,9 @@ const DetailsEvent = (props) => {
       ),
     });
   }, []);
-  return <DetailsEventComponent event={route.params.event} />;
+
+  
+  return <UpdateEventComponent event={props.route.params.event} />;
 };
 
-export default DetailsEvent;
+export default UpdateEvent;

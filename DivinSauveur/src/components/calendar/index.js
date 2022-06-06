@@ -8,17 +8,27 @@ import {DETAILSEVENT} from '../../constants/routeNames';
 import styles from './styles';
 import Colors from '../../assets/themes/Colors';
 
-
-const CalenderComponent = ({sections, events}) => {
+const CalenderComponent = ({
+  combinedStatus,
+  setCombinedStatus,
+  sections,
+  events,
+}) => {
   const {navigate} = useNavigation();
-  const [status, setStatus] = useState('All');
-  const setStatusFilter = status => {
-    setStatus(status);
+  const setStatusFilter = selectedStatus => {
+    if (combinedStatus[selectedStatus] == true) {
+      combinedStatus[selectedStatus] = false;
+      setCombinedStatus({...combinedStatus}, {selectedStatus: true});
+    } else {
+      combinedStatus[selectedStatus] = true;
+      setCombinedStatus({...combinedStatus}, {selectedStatus: false});
+    }
   };
 
-  const generateLogo = (title, color) => {
+  const generateLogo = (title, color, idx) => {
     return (
       <View
+        key={idx}
         style={{
           paddingHorizontal: 2,
         }}>
@@ -29,7 +39,7 @@ const CalenderComponent = ({sections, events}) => {
             height: 20,
             alignItems: 'center',
             backgroundColor: color,
-            paddingTop:2,
+            paddingTop: 2,
           }}>
           <Text
             style={{
@@ -56,7 +66,10 @@ const CalenderComponent = ({sections, events}) => {
         <View style={styles.listTab}>
           {Object.keys(sections).map((e, idx) => (
             <TouchableOpacity
-              style={[styles.btnTab, status === e && styles.btnTabActive]}
+              style={[
+                styles.btnTab,
+                combinedStatus[e] === true && styles.btnTabActive,
+              ]}
               onPress={() => setStatusFilter(e)}
               key={idx}>
               <Text style={styles.textTab}>{e}</Text>
@@ -74,13 +87,14 @@ const CalenderComponent = ({sections, events}) => {
                 <Text style={styles.nameEvent}>{event.name}</Text>
                 <Text style={styles.lieuEvent}>{event.address}</Text>
                 <Text style={styles.dateEvent}>
-                  {new Date(event.beginAt).toLocaleDateString('fr')} 
+                  {new Date(event.beginAt).toLocaleDateString('fr')}
                 </Text>
                 <Text style={styles.sectionEvent}>
-                  {event.section.map(el => {
+                  {event.section.map((el, idx) => {
                     return generateLogo(
                       sections[el].logo,
                       sections[el].iconColor,
+                      idx,
                     );
                   })}
                 </Text>
