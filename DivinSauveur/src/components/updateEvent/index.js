@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,43 +12,59 @@ import CustomButton from '../common/CustomButton';
 import styles from './styles';
 import colors from '../../assets/themes/Colors';
 
-import {create} from '../../context/actions/event';
+import {updateEvent} from '../../context/actions/event';
 import {SECTIONS} from '../../constants/actionTypes';
-import { CALENDAR } from '../../constants/routeNames';
+import {CALENDAR} from '../../constants/routeNames';
 
-const UpdateEventComponent = ({event}) => {
+const UpdateEventComponent = ({event: receivedEvent}) => {
+
+  const sectionsProps = {};
+  receivedEvent.section.forEach((el) => {
+    sectionsProps[el] = true;
+  });
+
   const {navigate} = useNavigation();
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({});
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [startEvent, setStartEvent] = useState('');
-  const [endEvent, setEndEvent] = useState('');
+  const [name, setName] = useState(receivedEvent.name || '');
+  const [address, setAddress] = useState(receivedEvent.address || '');
+  const [startEvent, setStartEvent] = useState(receivedEvent.beginAt ?? '');
+  const [endEvent, setEndEvent] = useState(receivedEvent.endAt ?? '');
   const [selectedDateInput, setSelectedDateInput] = useState('startEvent');
-  const [sections, setSections] = useState({});
-  const [description, setDescription] = useState('');
+  const [sections, setSections] = useState(sectionsProps);
+  const [description, setDescription] = useState(receivedEvent.comment || '');
   const [errorStartDate, setErrorStartDate] = useState(false);
   const [errorEndDate, setErrorEndDate] = useState(false);
 
-
   const handleDate = date => {
     if (selectedDateInput === 'startEvent') {
-      if (endEvent == '') {
-        setStartEvent(date);
-      } else if (endEvent !== '' && date < endEvent) {
+      setStartEvent(date);
+
+      if (new Date(date) < new Date(endEvent)) {
         setStartEvent(date);
       } else {
         setErrorStartDate(true);
       }
     } else if (selectedDateInput === 'endEvent') {
+      setEndEvent(date);
       if (startEvent == '') {
         setEndEvent(date);
-      } else if (startEvent !== '' && date > startEvent) {
+      } else if (new Date(date) > new Date(startEvent)) {
         setEndEvent(date);
       } else {
         setErrorEndDate(true);
       }
     }
+  };
+
+  const formatDate = date => {
+    return date.toLocaleString('fr', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   };
 
   const handleSection = (key, value) => {
@@ -62,7 +78,8 @@ const UpdateEventComponent = ({event}) => {
       if (Object.keys(resp).length == 0) {
         const arrayOfSections = getArrayOfSections();
 
-        const event = {
+        const updatedEvent = {
+          _id: receivedEvent._id,
           name: name,
           address: address,
           beginAt: startEvent,
@@ -71,10 +88,10 @@ const UpdateEventComponent = ({event}) => {
           comment: description,
         };
 
-        return create(event)
+        return updateEvent(updatedEvent)
           .then(resp => {
-            if(resp){
-              window.alert("good job")
+            if (resp) {
+              Alert.alert('Bravo', "L'évènement a bien été modifié !");
             }
           })
           .then(() => navigate(CALENDAR))
@@ -101,7 +118,8 @@ const UpdateEventComponent = ({event}) => {
     const arrayOfSections = getArrayOfSections();
 
     if (arrayOfSections.length == 0) {
-      err['sections'] = "Veuillez sélectionner au moins une section pour l'évènement";
+      err['sections'] =
+        "Veuillez sélectionner au moins une section pour l'évènement";
     }
     if (!description || description === '') {
       err['description'] = "Veuillez entrer une description pour l'évènement";
@@ -146,7 +164,7 @@ const UpdateEventComponent = ({event}) => {
         <Input
           type="text"
           name="name"
-          value={event.name}
+          value={name}
           onChangeText={value => {
             if (!value || value == '') {
               setName(undefined);
@@ -174,7 +192,7 @@ const UpdateEventComponent = ({event}) => {
         <Input
           type="text"
           name="address"
-          value={event.address}
+          value={address}
           onChangeText={value => {
             if (!value || value == '') {
               setAddress(undefined);
@@ -209,16 +227,9 @@ const UpdateEventComponent = ({event}) => {
           <Input
             type="text"
             name="startEvent"
+            //defaultValue={new Date(event.beginAt).toLocaleDateString()}
             value={
-              startEvent
-                ? new Date(startEvent).toLocaleString('fr', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })
-                : ''
+              startEvent ? formatDate(new Date(startEvent)) : receivedEvent.beginAt
             }
             placeholder="Début de l'évènement*"
             pointerEvents="none"
@@ -249,17 +260,7 @@ const UpdateEventComponent = ({event}) => {
           <Input
             type="text"
             name="endEvent"
-            value={
-              endEvent
-                ? new Date(endEvent).toLocaleString('fr', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })
-                : ''
-            }
+            value={endEvent ? formatDate(new Date(endEvent)) : receivedEvent.endAt}
             placeholder="Fin de l'évènement*"
             pointerEvents="none"
             icon={
@@ -355,7 +356,7 @@ const UpdateEventComponent = ({event}) => {
         <CustomButton
           onPress={handleSubmit}
           primary
-          title="Ajouter l'évènement à la liste"
+          title="Modifier l'évènement"
         />
       </View>
     </Container>

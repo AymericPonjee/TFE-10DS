@@ -1,18 +1,16 @@
 import React from 'react';
-
 import {useNavigation} from '@react-navigation/core';
+
 import {TouchableOpacity} from 'react-native';
+import {DETAILSEVENT} from '../../constants/routeNames';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import UpdateEventComponent from '../../components/updateEvent';
 
-import {CALENDAR} from '../../constants/routeNames';
-
-const UpdateEvent = (props) => {
+const UpdateEvent = props => {
   const {setOptions, navigate} = useNavigation();
+  const event = props.route.params.event;
 
-
-  
   React.useEffect(() => {
     setOptions({
       headerTransparent: true,
@@ -25,7 +23,7 @@ const UpdateEvent = (props) => {
         fontSize: 26,
       },
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigate(CALENDAR)}>
+        <TouchableOpacity onPress={() => navigate(DETAILSEVENT, {event})}>
           <Ionicons
             name="chevron-back"
             size={35}
@@ -37,8 +35,7 @@ const UpdateEvent = (props) => {
     });
   }, []);
 
-  
-  return <UpdateEventComponent event={props.route.params.event} />;
+  return <UpdateEventComponent event={event} />;
 };
 
 export default UpdateEvent;

@@ -10,7 +10,7 @@ import {CALENDAR} from '../../constants/routeNames';
 const DetailsEvent = (props) => {
   const {setOptions, navigate} = useNavigation();
 
-  const { navigation } = props;
+  //const { navigation } = props;
   const { route } = props;
 
   React.useEffect(() => {

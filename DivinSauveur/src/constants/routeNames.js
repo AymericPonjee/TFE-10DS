@@ -4,7 +4,9 @@ export const CALENDARSTACK = 'Calendrier';
 export const ADDEVENT = 'Nouvel évènement';
 export const UPDATEEVENT = 'Modification';;
 export const DETAILSEVENT = "Détails";
+
 export const ANIMELIST = "Présence";
+export const ADDANIME = 'Nouvel animé';
 
 export const HOME = 'Home';
 

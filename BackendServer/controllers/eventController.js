@@ -1,17 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
-const User = require("../models/User");
-const SECTIONS = require("../utils/constants");
+const constants = require("../utils/constants");
 
 // SECTIONS IS THE DESIRED SORT
-const sortBy = SECTIONS.reduce((previous, current, index) => {
+const sortBy = constants.SECTIONS.reduce((previous, current, index) => {
   previous[current] = index;
   return previous;
 }, {});
 
 function sortSection(listOfSection) {
-  return listOfSection.sort((a, b) => sortBy[a] - sortBy[b]);
+  if (Array.isArray(listOfSection)) {
+    return listOfSection.sort((a, b) => sortBy[a] - sortBy[b]);
+  }
+  return [];
 }
 
 //route pour créer des évènements
@@ -97,10 +99,18 @@ router.delete("/:idEvent", (req, res) => {
 });
 
 router.put("/:idEvent", (req, res) => {
+  console.log("req.body ->", req.body);
   const formatedSection = sortSection(req.body.section);
+ console.log("idEvent ->", req.params.idEvent);
+
   Event.findByIdAndUpdate(
     req.params.idEvent,
-    { ...req.body, section: formatedSection },
+    {
+      ...req.body,
+      beginAt: new Date(req.body.beginAt),
+      endnAt: new Date(req.body.endAt),
+      section: formatedSection,
+    },
     { new: true }
   )
     .then((res) => {

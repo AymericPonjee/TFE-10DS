@@ -9,39 +9,46 @@ import Container from '../common/Container';
 import styles from './styles';
 import Colors from '../../assets/themes/Colors';
 
-const ListComponent = ({}) => {
+const AnimeList = ({}) => {
   //const {navigate} = useNavigation();
 
   return (
     <Container>
       <Text style={styles.title}>Liste de présence :</Text>
       <View style={styles.containerList}>
-        <CheckBox style={styles.presence} hideBox />
+        <CheckBox
+          style={styles.presence}
+          hideBox
+          onCheckColor={Colors.lightGrey}
+        />
         <Text style={styles.name}>NOM</Text>
         <Text style={styles.firstname}>Prénom</Text>
-        <TouchableOpacity style={styles.more}>
+        <TouchableOpacity style={styles.info}>
           <Ionicons
-            name={'ellipsis-horizontal'}
-            size={20}
-            color={Colors.darkBlue}
+            name={'information-circle-outline'}
+            size={22}
+            color={Colors.lightGrey}
           />
         </TouchableOpacity>
-      </View>
-
-      <View style={styles.containerList}>
-        <CheckBox style={styles.presence} hideBox />
-        <Text style={styles.name}>NOM</Text>
-        <Text style={styles.firstname}>Prénom</Text>
-        <TouchableOpacity style={styles.more}>
-          <Ionicons
-            name={'ellipsis-horizontal'}
-            size={20}
-            color={Colors.darkBlue}
-          />
-        </TouchableOpacity>
+        <View style={styles.options}>
+          <TouchableOpacity style={styles.more}>
+            <Ionicons
+              name={'md-add-circle-outline'}
+              size={30}
+              color={Colors.success}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.delete}>
+            <Ionicons
+              name={'ios-close-circle-outline'}
+              size={30}
+              color={Colors.danger}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </Container>
   );
 };
 
-export default ListComponent;
+export default AnimeList;

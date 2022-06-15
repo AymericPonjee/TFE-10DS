@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {TouchableOpacity} from 'react-native';
 import {ADDEVENT} from '../../constants/routeNames';
@@ -35,16 +36,16 @@ const SECTIONS = {
     logo: 'C',
   },
 };
- 
+
 const getArrayOfSections = dictionary => {
-   const arrayOfSections = [];
-   Object.entries(dictionary).forEach(([key, value]) => {
-     if (value == true) {
-       arrayOfSections.push(key);
-     }
-   });
-   return arrayOfSections;
- };
+  const arrayOfSections = [];
+  Object.entries(dictionary).forEach(([key, value]) => {
+    if (value == true) {
+      arrayOfSections.push(key);
+    }
+  });
+  return arrayOfSections;
+};
 
 const Calendar = () => {
   const {setOptions, toggleDrawer} = useNavigation();
@@ -54,13 +55,15 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [combinedStatus, setCombinedStatus] = useState({});
 
-  // Similaire à componentDidMount et componentDidUpdate :
-  useEffect(() => {
-    //fetchEvents().then(() => je traite la reponse de ma demande)
-    //             .catch(() => une exception quelconque a ete levee, lire le message d'erreur pour investiguer
-    const selectedSections = getArrayOfSections(combinedStatus);
-    filterEventsBySections(selectedSections);
-  });
+  useFocusEffect(
+    React.useCallback(() => {
+      const selectedSections = getArrayOfSections(combinedStatus);
+      const unsubscribe = filterEventsBySections(selectedSections);
+
+      return () => unsubscribe;
+    
+    }, [combinedStatus]),
+  );
 
   useEffect(() => {
     setOptions({

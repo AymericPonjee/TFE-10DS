@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import colors from '../../assets/themes/Colors';
 
 export default StyleSheet.create({
@@ -36,6 +36,9 @@ export default StyleSheet.create({
   btnTabActive: {
     backgroundColor: colors.darkBlue,
   },
+  sectionList: {
+    height: Dimensions.get('window').height,
+  },
   listEvent: {
     borderRadius: 60,
     backgroundColor: 'rgba(255,255,255,0.25)',
@@ -53,7 +56,8 @@ export default StyleSheet.create({
   lieuEvent: {
     color: colors.white,
     fontSize: 15,
-    width: 175,
+    width: 170,
+    height: 15,
   },
   dateEvent: {
     fontWeight: 'bold',

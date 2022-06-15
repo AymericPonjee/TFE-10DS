@@ -8,11 +8,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../assets/themes/Colors';
 import Container from '../common/Container';
 import styles from './styles';
-import { deleteEvent, updateEvent } from '../../context/actions/event';
+import { deleteEvent } from '../../context/actions/event';
 
 const DetailsEventComponent = ({event}) => {
-
-  
   const {navigate} = useNavigation();
 
   const handleDelete = () => {
@@ -29,11 +27,13 @@ const DetailsEventComponent = ({event}) => {
                   navigate(CALENDAR);
                 }
               })
-              .catch(err => console.log('err delete',err)),
+              .catch(err => console.log('err delete', err)),
         },
         {
           text: 'Non',
-          //style: color.colors.danger,
+          styles: {
+            color: 'red',
+          },
         },
       ],
     );
@@ -78,7 +78,7 @@ const DetailsEventComponent = ({event}) => {
           <TouchableOpacity
             style={styles.buttonSection}
             key={indice}
-            onPress={() => navigate(ANIMELIST)}>
+            onPress={() => navigate(ANIMELIST, {event})}>
             <Text style={styles.textSection}>{el}</Text>
           </TouchableOpacity>
         ))}

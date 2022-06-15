@@ -17,6 +17,7 @@ import {
   SHOPSTACK,
   DETAILSITEM,
   UPDATEEVENT,
+  ADDANIME,
 } from '../constants/routeNames';
 
 import SideMenu from './sideMenu';
@@ -31,6 +32,7 @@ import AddItem from '../screens/addItem';
 import List from '../screens/animeList';
 import DetailsItem from '../screens/detailsItem';
 import UpdateEvent from '../screens/updateEvent';
+import AddAnime from '../screens/addAnime';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -43,6 +45,7 @@ const CalendarStackView = () => {
       <Stack.Screen name={UPDATEEVENT} component={UpdateEvent} />
       <Stack.Screen name={DETAILSEVENT} component={DetailsEvent} />
       <Stack.Screen name={ANIMELIST} component={List} />
+      <Stack.Screen name={ADDANIME} component={AddAnime} />
     </Stack.Navigator>
   );
 };

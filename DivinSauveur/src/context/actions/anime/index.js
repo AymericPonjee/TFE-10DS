@@ -1,15 +1,15 @@
 import axiosInstance from '../../../helpers/axiosInstance';
-import {REGISTER_FAIL} from '../../../constants/actionTypes';
+import {CREATE_FAIL} from '../../../constants/actionTypes';
 
-export const register = user => {
+export const createAnime = anime => {
   return axiosInstance
-    .post('/Users/register', user)
+    .post('/Animes/create', anime)
     .then(res => {
       if (res) {
         return res;
       }
     })
     .catch(err => {
-      console.log("[register][err] => ", err);
+      console.log('[createAnime][err] => ', err);
     });
 };

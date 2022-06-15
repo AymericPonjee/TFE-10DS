@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -73,7 +73,7 @@ const AddEventComponent = () => {
         return create(event)
           .then(resp => {
             if(resp){
-              window.alert("good job")
+              Alert.alert('Bravo',"L'évènement a bien été  ajouté !")
             }
           })
           .then(() => navigate(CALENDAR))
@@ -293,6 +293,7 @@ const AddEventComponent = () => {
                   style={styles.checkBox}
                   hideBox
                   onValueChange={value => handleSection(el, value)}
+                  onCheckColor={colors.lightGrey}
                 />
               </View>
               <Text style={styles.labelCheckBox}>{el}</Text>

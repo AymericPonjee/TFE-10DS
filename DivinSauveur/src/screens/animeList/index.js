@@ -2,14 +2,14 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 import {TouchableOpacity} from 'react-native';
-import {DETAILSEVENT} from '../../constants/routeNames';
+import {ADDANIME, DETAILSEVENT} from '../../constants/routeNames';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ListComponent from '../../components/animeList';
+import AnimeList from '../../components/animeList';
 
-const List = () => {
-  const {setOptions, toggleDrawer} = useNavigation();
-  const {navigate} = useNavigation();
+const List = (props) => {
+  const {setOptions, navigate} = useNavigation();
+  const event = props.route.params.event;
 
   React.useEffect(() => {
     setOptions({
@@ -23,7 +23,7 @@ const List = () => {
         fontSize: 30,
       },
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigate(DETAILSEVENT)}>
+        <TouchableOpacity onPress={() => navigate(DETAILSEVENT, {event})}>
           <Ionicons
             name="chevron-back"
             size={35}
@@ -35,7 +35,7 @@ const List = () => {
       headerRight: () => (
         <TouchableOpacity
           onPress={() => {
-            navigate();
+            navigate(ADDANIME);
           }}>
           <Ionicons
             name="add"
@@ -47,7 +47,7 @@ const List = () => {
       ),
     });
   }, []);
-  return <ListComponent />;
+  return <AnimeList event={event} />;
 };
 
 export default List;

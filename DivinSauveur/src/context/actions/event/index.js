@@ -14,31 +14,21 @@ export const create = event => {
       }
     })
     .catch(err => {
-      dispatch({
-        type: EVENT_CREATE_FAIL,
-        payload: err.response
-          ? err.response.data
-          : {error: 'Une erreur est survenue.. Réessayez'},
-      });
+      console.log("[create][err] => ", err);
     });
 };
 
 //http://localhost:3000/Events/list
-export const fetchEvents = params => {
+export const fetchEvents = (params) => {
   return axiosInstance
-    .get('/Events/list', {params})
+    .get('/Events/list', params)
     .then(res => {
       if (res) {
         return res;
       }
     })
     .catch(err => {
-      dispatch({
-        type: EVENT_LIST_FAIL,
-        payload: err.response
-          ? err.response.data
-          : {error: 'Une erreur est survenue.. Réessayez'},
-      });
+      console.log("[fetchEvents][err] => ", err);
     });
 };
 
@@ -52,35 +42,20 @@ export const deleteEvent = params => {
       }
     })
     .catch(err => {
-      // dispatch({
-      //   type: EVENT_LIST_FAIL,
-      //   payload: err.response
-      //     ? err.response.data
-      //     : {error: 'Une erreur est survenue.. Réessayez'},
-      // });
-      console.log('err ->', err);
+      console.log('[deleteEvent][err] ->', err);
     });
 };
 
 //http://localhost:3000/Events/
 export const updateEvent = event => {
   return axiosInstance
-    .put(`/Events/${event._id}`)
+    .put(`/Events/${event._id}`, event)
     .then(res => {
       if (res) {
         return res;
       }
     })
     .catch(err => {
-      // dispatch({
-      //   type: EVENT_UPDATE_FAIL,
-      //   payload: err.response
-      //     ? err.response.data
-      //     : {error: 'Une erreur est survenue.. Réessayez'},
-      // });
-      console.log('err ->', err);
+      console.log('[updateEvent][err] ->', err);
     });
 };
-
-
-

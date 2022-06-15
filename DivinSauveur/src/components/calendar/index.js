@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import {ScrollView, Text, View, ImageBackground, StatusBar} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {DETAILSEVENT} from '../../constants/routeNames';
 
@@ -78,7 +84,7 @@ const CalenderComponent = ({
         </View>
 
         <ScrollView>
-          <View>
+          <View style={styles.sectionList}>
             {events.map((event, indice) => (
               <TouchableOpacity
                 style={styles.listEvent}

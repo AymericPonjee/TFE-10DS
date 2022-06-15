@@ -5,45 +5,43 @@ import {GlobalContext} from '../../context/provider';
 import LoginComponent from '../../components/login';
 import {login} from '../../context/actions/auth/loginUser';
 import {storeData, retrieveData} from '../../utils/storage.js';
-import axiosInstance from '../../helpers/axiosInstance';
+import { LOCAL_STORAGE_KEYS } from '../../constants/models';
 
 const Login = () => {
   const [form, setForm] = useState({});
   const [justSignedUp, setJustSignedUp] = useState(false);
 
-  const {setAuthenticated, setUser} = useContext(GlobalContext);
+  const {setAuthenticated, setUser, setAccessToken} = useContext(GlobalContext);
 
   //Si l'utilisateur est déjà connecté. Il skip la navigation de page de connexion/inscription
   useEffect(() => {
-    retrieveData('user').then(resp => {
+    retrieveData(LOCAL_STORAGE_KEYS.TOKEN).then(resp => {
       if (resp) {
         setAuthenticated(true);
         setUser(resp);
+        setAccessToken(resp)
       }
     });
   }, []);
 
   const onSubmit = () => {
     if (form.mail && form.password) {
-      console.log('form =>', form)
-
+      console.log('form =>', form);
 
       login(form)
-        .then(response => {
-          console.log('repsonse => ', response);
-          if (response) {
-            storeData('user', response).then(() => {
+        .then(token => {
+          if (token) {
+            storeData(LOCAL_STORAGE_KEYS.TOKEN, token.data).then(() => {
               setAuthenticated(true);
-              setUser(response);
+              setAccessToken(token.data);
             });
           }
         })
         .catch(error => {
-          console.log(error)
-          if(error) {
-            window.alert(error)
+          console.log(error);
+          if (error) {
+            window.alert(error);
           }
-          
         });
     }
   };
@@ -58,8 +56,6 @@ const Login = () => {
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}
-      // error={error}
-      // loading={loading}
       justSignedUp={justSignedUp}
     />
   );

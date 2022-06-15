@@ -19,12 +19,25 @@ app.use(
     extended: true,
   })
 );
+/* Middlewares */
+const LoggerMiddleware = require('./middleware/loggerMiddleware')
+const AuthMiddleware = require("./middleware/authMiddleware");
 
+/* Routes */
 const userControlleur = require('./controllers/userController');
 const eventControlleur = require("./controllers/eventController");
+const animeControlleur = require("./controllers/animeController");
+const shopControlleur = require("./controllers/shopController");
 
+/* middlewares */
+app.use(LoggerMiddleware);
+app.use(AuthMiddleware);
+
+/* routes */
 app.use('/Users', userControlleur);
 app.use("/Events", eventControlleur);
+app.use("/Animes", animeControlleur);
+app.use("/Shop", shopControlleur);
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
   console.log("[DB]: connected");

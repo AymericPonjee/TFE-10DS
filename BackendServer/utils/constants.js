@@ -7,4 +7,11 @@ const SECTIONS = [
   "Chefs",
 ];
 
-module.exports = SECTIONS
+const ANIME_STATE = [
+  'ACTIF' , 'SUPPRIME', 'INACTIF'
+];
+
+module.exports = Object.freeze({
+  SECTIONS,
+  ANIME_STATE,
+});

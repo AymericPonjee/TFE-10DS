@@ -13,7 +13,7 @@ export const retrieveData = async key => {
   try {
     const value = await AsyncStorage.getItem(key);
     if (value !== null) {
-      return JSON.parse(stringValue);
+      return JSON.parse(value);
     }
   } catch (error) {}
 };

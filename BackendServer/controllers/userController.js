@@ -2,8 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const { json } = require("express");
 const saltRounds = 10;
+var jwt = require("jsonwebtoken");
+
+function signToken(mail) {
+  return jwt.sign({ mail }, process.env.JWT_PRIVATE_KEY);
+}
 
 router.get("/", (req, res) => {
   res.send("Hello World! User");
@@ -24,13 +28,13 @@ router.post("/login", (req, res) => {
   User.findOne({ mail: req.body.mail })
     .then((data) => {
       const user = new User(data);
-      console.log("user ->", user);
-
+      
       bcrypt.compare(myPlaintextPassword, user.password, (err, result) => {
-        console.log("result ->", result);
-
-        if (result == true) {
-          res.json(data);
+        if (result == true) {          
+          const token = signToken(user.mail, user.password);
+          //res.json({...data, token});
+          //res.json(data);
+          res.json(token);
           res.status(201);
         } 
         if (result == false || err) {
@@ -38,8 +42,7 @@ router.post("/login", (req, res) => {
           res.json({ message: 'email ou mot de passe incorrect' });
         }
       });
-    })
-    .catch((err) => {
+    }).catch((err) => {
       res.status(404);
       res.json({ message: err });
     });
