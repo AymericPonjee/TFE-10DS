@@ -20,6 +20,10 @@ export default StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 15,
   },
+  sousContainerList: {
+    flexDirection: 'row',
+    width: 240,
+  },
   name: {
     fontWeight: 'bold',
     color: Colors.darkBlue,
@@ -38,10 +42,9 @@ export default StyleSheet.create({
     width: 22,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginTop: 4
+    marginTop: 4,
   },
   info: {
-    width: 120,
     paddingTop: 5,
   },
   options: {

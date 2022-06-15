@@ -58,6 +58,7 @@ const LoginComponent = ({
           <Input
             placeholder="Mail"
             keyboardType="email-address"
+            autoCorrect={false}
             icon={
               <Ionicons
                 name={'ios-mail-outline'}

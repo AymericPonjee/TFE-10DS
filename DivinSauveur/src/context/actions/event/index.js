@@ -1,8 +1,5 @@
 import axiosInstance from '../../../helpers/axiosInstance';
-import {
-  EVENT_CREATE_FAIL,
-  EVENT_LIST_FAIL,
-} from '../../../constants/actionTypes';
+
 
 //http://localhost:3000/Events/create
 export const create = event => {

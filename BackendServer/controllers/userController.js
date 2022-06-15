@@ -9,6 +9,7 @@ function signToken(mail) {
   return jwt.sign({ mail }, process.env.JWT_PRIVATE_KEY);
 }
 
+// route de base
 router.get("/", (req, res) => {
   res.send("Hello World! User");
   User.find()
@@ -32,8 +33,6 @@ router.post("/login", (req, res) => {
       bcrypt.compare(myPlaintextPassword, user.password, (err, result) => {
         if (result == true) {          
           const token = signToken(user.mail, user.password);
-          //res.json({...data, token});
-          //res.json(data);
           res.json(token);
           res.status(201);
         } 
@@ -67,6 +66,7 @@ router.post("/register", (req, res) => {
   });
 });
 
+//route pour update un user
 router.put("/update-user", (req, res) => {
   bcrypt.hash(req.body.password, saltRounds, (err, hashedPassword) => {
     if (err) {

@@ -77,7 +77,7 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           autoCorrect={false}
           icon={
             <Ionicons
-              name={'person-outline'}
+              name={'card-outline'}
               size={22}
               color={'rgba(153,178,208,0.7)'}
               style={styles.InputIcon}
@@ -94,7 +94,7 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           autoCorrect={false}
           icon={
             <Ionicons
-              name={'person-outline'}
+              name={'home-outline'}
               size={22}
               color={'rgba(153,178,208,0.7)'}
               style={styles.InputIcon}
@@ -112,7 +112,7 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           autoCorrect={false}
           icon={
             <Ionicons
-              name={'person-outline'}
+              name={'mail-outline'}
               size={22}
               color={'rgba(153,178,208,0.7)'}
               style={styles.InputIcon}
@@ -130,7 +130,7 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           autoCorrect={false}
           icon={
             <Ionicons
-              name={'person-outline'}
+              name={'call-outline'}
               size={22}
               color={'rgba(153,178,208,0.7)'}
               style={styles.InputIcon}

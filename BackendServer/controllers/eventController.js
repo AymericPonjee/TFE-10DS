@@ -3,7 +3,7 @@ const router = express.Router();
 const Event = require("../models/Event");
 const constants = require("../utils/constants");
 
-// SECTIONS IS THE DESIRED SORT
+// SECTIONS qu'on trie via le sort
 const sortBy = constants.SECTIONS.reduce((previous, current, index) => {
   previous[current] = index;
   return previous;
@@ -98,6 +98,7 @@ router.delete("/:idEvent", (req, res) => {
     });
 });
 
+//route pour modifier un event associé à l'id
 router.put("/:idEvent", (req, res) => {
   console.log("req.body ->", req.body);
   const formatedSection = sortSection(req.body.section);

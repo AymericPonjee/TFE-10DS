@@ -1,20 +1,5 @@
 var jwt = require("jsonwebtoken");
 
-// function verifyToken(token) {
-//   try {
-//     return jwt.verify(token, process.env.JWT_PRIVATE_KEY, (err, decoded) => {
-//       if (err) {
-//         console.log("[JWT.verify]: Err =>", err);
-//       }
-//       if (token) {
-//         console.log("[JWT.verify]: decoded =>", decoded);
-//       }
-//     });
-//   } catch (err) {
-//     console.log("[JWT.verify.catch]: err =>", err);
-//   }
-// }
-
 const authorizedRoutes = ["/Users/login", "/Users/register"];
 
 const VerifyTokenMiddleware = (req, res, next) => {

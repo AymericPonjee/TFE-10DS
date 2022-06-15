@@ -19,24 +19,26 @@ const AnimeList = ({animes}) => {
       {animes && animes?.map((el, idx) => {
         return (
           <View key={idx} style={styles.containerList}>
-            <CheckBox
-              style={styles.presence}
-              hideBox
-              onCheckColor={Colors.lightGrey}
-            />
-            <Text style={styles.name}>{el.name}</Text>
-            <Text style={styles.firstname}>{el.firstname}</Text>
-            <TouchableOpacity style={styles.info}>
-              <Ionicons
-                name={'information-circle-outline'}
-                size={22}
-                color={Colors.lightGrey}
+            <View style={styles.sousContainerList}>
+              <CheckBox
+                style={styles.presence}
+                hideBox
+                onCheckColor={Colors.lightGrey}
               />
-            </TouchableOpacity>
+              <Text style={styles.name}>{el.name}</Text>
+              <Text style={styles.firstname}>{el.firstname}</Text>
+              <TouchableOpacity style={styles.info}>
+                <Ionicons
+                  name={'information-circle-outline'}
+                  size={22}
+                  color={Colors.lightGrey}
+                />
+              </TouchableOpacity>
+            </View>
             <View style={styles.options}>
               <TouchableOpacity style={styles.more}>
                 <Ionicons
-                  name={'md-add-circle-outline'}
+                  name={'md-ellipsis-horizontal-circle'}
                   size={30}
                   color={Colors.success}
                 />

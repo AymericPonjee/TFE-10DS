@@ -57,7 +57,7 @@ export default StyleSheet.create({
     color: colors.white,
     fontSize: 15,
     width: 170,
-    height: 15,
+    height: 20,
   },
   dateEvent: {
     fontWeight: 'bold',
