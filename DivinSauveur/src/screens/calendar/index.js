@@ -8,34 +8,7 @@ import {fetchEvents} from '../../context/actions/event';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CalendarComponent from '../../components/calendar';
-import Colors from '../../assets/themes/Colors';
-
-const SECTIONS = {
-  Baladins: {
-    iconColor: Colors.baladins,
-    logo: 'B',
-  },
-  Mowha: {
-    iconColor: Colors.loups,
-    logo: 'M',
-  },
-  Seeonee: {
-    iconColor: Colors.loups,
-    logo: 'S',
-  },
-  Éclaireurs: {
-    iconColor: Colors.eclaireurs,
-    logo: 'E',
-  },
-  Pionniers: {
-    iconColor: Colors.danger,
-    logo: 'P',
-  },
-  Chefs: {
-    iconColor: Colors.chefs,
-    logo: 'C',
-  },
-};
+import { SECTIONS } from '../../constants/models';
 
 const getArrayOfSections = dictionary => {
   const arrayOfSections = [];
@@ -54,7 +27,7 @@ const Calendar = () => {
   // array des events qu'on recup du backend
   const [events, setEvents] = useState([]);
   const [combinedStatus, setCombinedStatus] = useState({});
-
+ 
   useFocusEffect(
     React.useCallback(() => {
       const selectedSections = getArrayOfSections(combinedStatus);
@@ -110,6 +83,7 @@ const Calendar = () => {
     fetchEvents(params)
       .then(resp => {
         if (resp) {
+          console.log("fetchEvents => resp: ", resp.data)
           setEvents(resp.data);
         }
       })

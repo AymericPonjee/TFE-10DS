@@ -22,6 +22,7 @@ const RegisterComponent = ({
 
   const { navigate } = useNavigation();
 
+
   return (
     <Container>
       <Image
@@ -111,6 +112,7 @@ const RegisterComponent = ({
             placeholder="Mail*"
             autoCorrect={false}
             keyboardType="email-address"
+
             icon={
               <Ionicons
                 name={'ios-mail-outline'}

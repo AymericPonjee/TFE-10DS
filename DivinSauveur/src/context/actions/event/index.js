@@ -14,21 +14,21 @@ export const create = event => {
       }
     })
     .catch(err => {
-      console.log("[create][err] => ", err);
+      console.log('[create][err] => ', err);
     });
 };
 
 //http://localhost:3000/Events/list
-export const fetchEvents = (params) => {
+export const fetchEvents = params => {
   return axiosInstance
-    .get('/Events/list', params)
+    .get('/Events/list', {params})
     .then(res => {
       if (res) {
         return res;
       }
     })
     .catch(err => {
-      console.log("[fetchEvents][err] => ", err);
+      console.log('[fetchEvents][err] => ', err);
     });
 };
 

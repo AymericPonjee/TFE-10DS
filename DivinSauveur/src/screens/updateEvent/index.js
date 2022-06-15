@@ -9,7 +9,7 @@ import UpdateEventComponent from '../../components/updateEvent';
 
 const UpdateEvent = props => {
   const {setOptions, navigate} = useNavigation();
-  const event = props.route.params.event;
+  const event = props.route?.params?.event;
 
   React.useEffect(() => {
     setOptions({

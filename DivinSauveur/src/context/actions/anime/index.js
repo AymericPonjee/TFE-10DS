@@ -1,5 +1,4 @@
 import axiosInstance from '../../../helpers/axiosInstance';
-import {CREATE_FAIL} from '../../../constants/actionTypes';
 
 export const createAnime = anime => {
   return axiosInstance
@@ -13,3 +12,16 @@ export const createAnime = anime => {
       console.log('[createAnime][err] => ', err);
     });
 };
+
+export const listAnime = () => {
+  return axiosInstance
+    .get('/Animes/list')
+    .then(res => {
+      if (res) {
+        return res;
+      }
+    })
+    .catch(err => {
+      console.log('[listAnime][err] => ', err);
+    }); 
+}

@@ -13,18 +13,6 @@ import styles from './styles';
 const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
   const {navigate} = useNavigation();
   const [open, setOpen] = useState(false);
-  const [birthday, setBirthday] = useState('');
-  const [errorbirthdayDate, setErrorBirthdayDate] = useState(false);
-  const [selectedDateInput, setSelectedDateInput] = useState('birthday');
-
-
-  const handleDate = date => {
-    if (selectedDateInput === 'birthday') {
-        setBirthday(date);
-    } else {
-        setErrorBirthdayDate(true);
-      }
-  };
 
   return (
     <Container>
@@ -84,43 +72,6 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           }}
           error={errors.firstname || error?.prenom_anime?.[0]}
         />
-        <TouchableOpacity
-          onPress={() => {
-            setSelectedDateInput('birthday');
-            setOpen(true);
-            setErrorBirthdayDate(false);
-          }}>
-          <Input
-            type="text"
-            name="birthday"
-            value={
-              birthday
-                ? new Date(birthday).toLocaleString('fr', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                  })
-                : ''
-            }
-            placeholder="Date de naissance*"
-            pointerEvents="none"
-            icon={
-              <Ionicons
-                name={'calendar-outline'}
-                size={23}
-                color={'rgba(153,178,208,0.7)'}
-              />
-            }
-            iconPosition="right"
-            error={
-              errorbirthdayDate == true
-                ? 'Date invalide !'
-                : errors['birthday']
-                ? errors['birthday']
-                : undefined
-            }
-          />
-        </TouchableOpacity>
         <Input
           placeholder="Numéro de registre*"
           autoCorrect={false}
@@ -134,9 +85,9 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           }
           iconPosition="right"
           onChangeText={value => {
-            onChange({name: 'firstname', value});
+            onChange({name: 'nationalNumber', value});
           }}
-          error={errors.firstname || error?.prenom_anime?.[0]}
+          error={errors.nationalNumber || error?.nationalNumber_anime?.[0]}
         />
         <Input
           placeholder="Adresse*"
@@ -169,9 +120,9 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           }
           iconPosition="right"
           onChangeText={value => {
-            onChange({name: 'mail', value});
+            onChange({name: 'mailParent', value});
           }}
-          error={errors.mail || error?.mail_anime?.[0]}
+          error={errors.mailParent || error?.mailParent_anime?.[0]}
         />
 
         <Input
@@ -187,9 +138,9 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           }
           iconPosition="right"
           onChangeText={value => {
-            onChange({name: 'number', value});
+            onChange({name: 'numberParent', value});
           }}
-          error={errors.number || error?.number_anime?.[0]}
+          error={errors.numberParent || error?.numberParent_anime?.[0]}
         />
 
         <CustomButton

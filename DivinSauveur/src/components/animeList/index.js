@@ -9,44 +9,49 @@ import Container from '../common/Container';
 import styles from './styles';
 import Colors from '../../assets/themes/Colors';
 
-const AnimeList = ({}) => {
+const AnimeList = ({animes}) => {
   //const {navigate} = useNavigation();
+
 
   return (
     <Container>
       <Text style={styles.title}>Liste de présence :</Text>
-      <View style={styles.containerList}>
-        <CheckBox
-          style={styles.presence}
-          hideBox
-          onCheckColor={Colors.lightGrey}
-        />
-        <Text style={styles.name}>NOM</Text>
-        <Text style={styles.firstname}>Prénom</Text>
-        <TouchableOpacity style={styles.info}>
-          <Ionicons
-            name={'information-circle-outline'}
-            size={22}
-            color={Colors.lightGrey}
-          />
-        </TouchableOpacity>
-        <View style={styles.options}>
-          <TouchableOpacity style={styles.more}>
-            <Ionicons
-              name={'md-add-circle-outline'}
-              size={30}
-              color={Colors.success}
+      {animes && animes?.map((el, idx) => {
+        return (
+          <View key={idx} style={styles.containerList}>
+            <CheckBox
+              style={styles.presence}
+              hideBox
+              onCheckColor={Colors.lightGrey}
             />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.delete}>
-            <Ionicons
-              name={'ios-close-circle-outline'}
-              size={30}
-              color={Colors.danger}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+            <Text style={styles.name}>{el.name}</Text>
+            <Text style={styles.firstname}>{el.firstname}</Text>
+            <TouchableOpacity style={styles.info}>
+              <Ionicons
+                name={'information-circle-outline'}
+                size={22}
+                color={Colors.lightGrey}
+              />
+            </TouchableOpacity>
+            <View style={styles.options}>
+              <TouchableOpacity style={styles.more}>
+                <Ionicons
+                  name={'md-add-circle-outline'}
+                  size={30}
+                  color={Colors.success}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.delete}>
+                <Ionicons
+                  name={'ios-close-circle-outline'}
+                  size={30}
+                  color={Colors.danger}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      })}
     </Container>
   );
 };

@@ -13,7 +13,7 @@ import styles from './styles';
 import colors from '../../assets/themes/Colors';
 
 import {create} from '../../context/actions/event';
-import {SECTIONS} from '../../constants/actionTypes';
+import {SECTIONS} from '../../constants/models';
 import { CALENDAR } from '../../constants/routeNames';
 
 const AddEventComponent = () => {
@@ -285,7 +285,7 @@ const AddEventComponent = () => {
               ? styles.checkBoxContainerError
               : styles.checkBoxContainer
           }>
-          {SECTIONS.map((el, index) => (
+          {Object.keys(SECTIONS).map((el, index) => (
             <View key={index} style={styles.checkBoxSection}>
               <View style={styles.checkBoxView}>
                 <CheckBox

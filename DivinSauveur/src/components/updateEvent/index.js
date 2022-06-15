@@ -13,13 +13,12 @@ import styles from './styles';
 import colors from '../../assets/themes/Colors';
 
 import {updateEvent} from '../../context/actions/event';
-import {SECTIONS} from '../../constants/actionTypes';
+import {SECTIONS} from '../../constants/models';
 import {CALENDAR} from '../../constants/routeNames';
 
 const UpdateEventComponent = ({event: receivedEvent}) => {
-
   const sectionsProps = {};
-  receivedEvent.section.forEach((el) => {
+  receivedEvent.section.forEach(el => {
     sectionsProps[el] = true;
   });
 
@@ -229,7 +228,9 @@ const UpdateEventComponent = ({event: receivedEvent}) => {
             name="startEvent"
             //defaultValue={new Date(event.beginAt).toLocaleDateString()}
             value={
-              startEvent ? formatDate(new Date(startEvent)) : receivedEvent.beginAt
+              startEvent
+                ? formatDate(new Date(startEvent))
+                : receivedEvent.beginAt
             }
             placeholder="Début de l'évènement*"
             pointerEvents="none"
@@ -260,7 +261,9 @@ const UpdateEventComponent = ({event: receivedEvent}) => {
           <Input
             type="text"
             name="endEvent"
-            value={endEvent ? formatDate(new Date(endEvent)) : receivedEvent.endAt}
+            value={
+              endEvent ? formatDate(new Date(endEvent)) : receivedEvent.endAt
+            }
             placeholder="Fin de l'évènement*"
             pointerEvents="none"
             icon={
@@ -287,7 +290,7 @@ const UpdateEventComponent = ({event: receivedEvent}) => {
               ? styles.checkBoxContainerError
               : styles.checkBoxContainer
           }>
-          {SECTIONS.map((el, index) => (
+          {Object.keys(SECTIONS).map((el, index) => (
             <View key={index} style={styles.checkBoxSection}>
               <View style={styles.checkBoxView}>
                 <CheckBox

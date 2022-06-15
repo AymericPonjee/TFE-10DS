@@ -4,7 +4,6 @@ const constants = require("./../utils/constants");
 const AnimeSchema = mongoose.Schema({
   name: { type: String, required: true },
   firstname: { type: String, required: true },
-  birthday: { type: Date, required: true },
   nationalNumber: { type: String, required: true },
   address: { type: String, required: true },
   mailParent: { type: String, required: true },

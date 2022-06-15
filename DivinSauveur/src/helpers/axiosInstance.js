@@ -14,6 +14,7 @@ axiosInstance.interceptors.request.use(
   async config => {
     const token = await retrieveData(LOCAL_STORAGE_KEYS.TOKEN);
     config.headers.Authorization = `Bearer ${token}`;
+    //console.log('token ->', token)
     return config;
   },
   error => {

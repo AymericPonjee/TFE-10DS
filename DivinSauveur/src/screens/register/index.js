@@ -6,6 +6,7 @@ import RegisterComponent from '../../components/signup';
 import {register} from '../../context/actions/auth/register';
 
 import {LOGIN} from '../../constants/routeNames';
+import { validateEmail } from '../../utils/validators';
 
 const Register = () => {
   const [form, setForm] = useState({});
@@ -43,6 +44,12 @@ const Register = () => {
         return {...prev, mail: 'Veuillez entrer un mail'};
       });
     }
+    // if (!validateEmail(form.email)){
+    //   setErrors(prev => {
+    //     return {...prev, mail: 'Format mail non valid'};
+    //   });
+    // }
+
     if (
       Object.values(form).length === 5 &&
       Object.values(form).every(item => item.trim().length > 0) &&
