@@ -51,6 +51,8 @@ const Register = () => {
     // }
 
     if (
+      Object.values(form).length === 3 || 
+      Object.values(form).length === 4 ||
       Object.values(form).length === 5 &&
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
