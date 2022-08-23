@@ -36,7 +36,7 @@ const DetailsEvent = (props) => {
       ),
     });
   }, []);
-  return <DetailsEventComponent event={route.params.event} />;
+  return <DetailsEventComponent event={route.params.event}/>;
 };
 
 export default DetailsEvent;

@@ -16,8 +16,21 @@ router.post("/create", (req, res) => {
     });
 });
 
+//route pour supprimer un animé associé à l'id
+router.delete("/:idAnime", (req, res) => {
+  Anime.findByIdAndDelete(req.params.idAnime)
+    .then((anime) => {
+      res.json(anime);
+    })
+    .catch((err) => {
+      res.json({ message: err });
+    });
+});
+
+// list route
 router.get("/list", (req, res) => {
-  Anime.find()
+  console.log("[list] req.query.section ", req.query.section);
+  Anime.find({ section: { $in: req.query.section } })
     .then((data) => {
       res.json(data);
       res.status(200);

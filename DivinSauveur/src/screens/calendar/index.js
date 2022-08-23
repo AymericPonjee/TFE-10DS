@@ -83,7 +83,6 @@ const Calendar = () => {
     fetchEvents(params)
       .then(resp => {
         if (resp) {
-          console.log("fetchEvents => resp: ", resp.data)
           setEvents(resp.data);
         }
       })

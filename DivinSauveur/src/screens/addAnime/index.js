@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/core';
 import {ANIMELIST} from '../../constants/routeNames';
 import {TouchableOpacity} from 'react-native';
 import {createAnime} from '../../context/actions/anime';
-
+import {SECTIONS} from '../../constants/models';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AddAnimeComponent from '../../components/addAnime';
 
@@ -14,7 +14,13 @@ const AddAnime = props => {
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
 
+  const [selectedSection, setSelectedSection] = useState(
+     Object.keys(SECTIONS)[0],
+   );
+
   const event = props.route?.params?.event;
+
+  console.log("add selectedSection =>", selectedSection);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -64,26 +70,15 @@ const AddAnime = props => {
         return {...prev, numberParent: 'Veuillez entrer un numéro de téléphone'};
       });
     }
-
-    console.log('Object.values(form).length =>', Object.values(form).length);
-    console.log(
-      'Object.values(form).every(item => item.trim().length =>',
-      Object.values(form).every(item => item.trim().length > 0),
-    );
-    console.log(
-      'Object.values(form).length =>',
-      Object.values(errors).every(item => !item)
-    );
-
+  
     if (
       Object.values(form).length === 6 &&
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      console.log('im here');
-      createAnime(form).then(result => {
+      createAnime({...form, section: selectedSection}).then(result => {
         if (result) {
-          navigation.navigate(ANIMELIST);
+          navigation.navigate(ANIMELIST, { section: selectedSection});
         }
       });
     }
@@ -102,7 +97,7 @@ const AddAnime = props => {
         fontSize: 26,
       },
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigate(ANIMELIST, {event})}>
+        <TouchableOpacity onPress={() => navigate(ANIMELIST, {event, section: selectedSection})}>
           <Ionicons
             name="chevron-back"
             size={35}
@@ -121,6 +116,8 @@ const AddAnime = props => {
       form={form}
       errors={errors}
       event={event}
+      selectedSection={selectedSection} 
+      setSelectedSection={setSelectedSection}
     />
   );
 };

@@ -25,7 +25,7 @@ export const fetchEvents = params => {
       }
     })
     .catch(err => {
-      console.log('[fetchEvents][err] => ', err);
+      console.log('[fetchEvent][err] => ', err);
     });
 };
 

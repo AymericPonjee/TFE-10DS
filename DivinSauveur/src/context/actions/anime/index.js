@@ -13,9 +13,23 @@ export const createAnime = anime => {
     });
 };
 
-export const listAnime = () => {
+//http://localhost:3000/Animes/
+export const deleteAnime = params => {
   return axiosInstance
-    .get('/Animes/list')
+    .delete(`/Animes/${params}`)
+    .then(res => {
+      if (res) {
+        return res;
+      }
+    })
+    .catch(err => {
+      console.log('[deleteAnime][err] ->', err);
+    });
+};
+
+export const listAnime = params => {
+  return axiosInstance
+    .get('/Animes/list', {params})
     .then(res => {
       if (res) {
         return res;
@@ -23,5 +37,5 @@ export const listAnime = () => {
     })
     .catch(err => {
       console.log('[listAnime][err] => ', err);
-    }); 
-}
+    });
+};

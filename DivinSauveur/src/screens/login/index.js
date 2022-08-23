@@ -26,8 +26,6 @@ const Login = () => {
 
   const onSubmit = () => {
     if (form.mail && form.password) {
-      console.log('form =>', form);
-
       login(form)
         .then(token => {
           if (token) {

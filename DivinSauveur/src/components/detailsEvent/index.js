@@ -36,8 +36,7 @@ const DetailsEventComponent = ({event}) => {
           },
         },
       ],
-    );
-    
+    ); 
   }
 
   return (
@@ -78,7 +77,7 @@ const DetailsEventComponent = ({event}) => {
           <TouchableOpacity
             style={styles.buttonSection}
             key={indice}
-            onPress={() => navigate(ANIMELIST, {event})}>
+            onPress={() => navigate(ANIMELIST, {event, section: el})}>
             <Text style={styles.textSection}>{el}</Text>
           </TouchableOpacity>
         ))}

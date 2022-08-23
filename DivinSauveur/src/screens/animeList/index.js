@@ -1,17 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {useFocusEffect} from '@react-navigation/native';
 
 import {TouchableOpacity} from 'react-native';
 import {ADDANIME, DETAILSEVENT} from '../../constants/routeNames';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AnimeList from '../../components/animeList';
-import {listAnime} from './../../context/actions/anime';
+
 const List = props => {
   const {setOptions, navigate} = useNavigation();
   const event = props.route?.params?.event;
-  const [animes, setAnimes] = useState([]);
+  const section = props.route?.params?.section;
 
   React.useEffect(() => {
     setOptions({
@@ -50,19 +49,13 @@ const List = props => {
     });
   }, []);
 
-  console.log('animes =>', animes);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      //const selectedSections = getArrayOfSections(combinedStatus);
-      const unsubscribe = listAnime().then(resp => {
-        setAnimes(resp.data);
-      });
-      return () => unsubscribe;
-    }, []),
+  return (
+    <AnimeList
+      event={event}
+      section={section}
+      navigation={props.navigation}
+    />
   );
-
-  return <AnimeList event={event} animes={animes} />;
 };
 
 export default List;

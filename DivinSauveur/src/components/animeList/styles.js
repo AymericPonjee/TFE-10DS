@@ -47,13 +47,36 @@ export default StyleSheet.create({
   info: {
     paddingTop: 5,
   },
+  headerModal: {
+    flexDirection: 'row',
+    paddingBottom: 10,
+  },
+  closeModal: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  textModal: {
+    fontSize: 16,
+  },
+  text: {
+    paddingVertical:3,
+    paddingLeft: 5
+  },
+  nameModal: {
+    fontWeight: 'bold',
+    color: Colors.darkBlue,
+    fontSize: 16,
+  },
+  firstnameModal: {
+    color: Colors.darkBlue,
+    fontSize: 16,
+  },
   options: {
     flexDirection: 'row',
+    paddingHorizontal: 10,
   },
   more: {
     paddingHorizontal: 5,
   },
-  delete: {
-    paddingRight: 5,
-  },
+  delete: {},
 });

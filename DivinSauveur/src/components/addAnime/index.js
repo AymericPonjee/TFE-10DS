@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
 
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Container from '../../components/common/Container';
@@ -9,8 +9,20 @@ import CustomButton from '../common/CustomButton';
 import Input from '../../components/common/Input';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
+import colors from '../../assets/themes/Colors';
 
-const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
+import {SECTIONS} from '../../constants/models';
+import {RadioButtonContainer} from '../common/RadioButtonContainer';
+
+const AddAnimeComponent = ({
+  onSubmit,
+  onChange,
+  loading,
+  error,
+  errors,
+  selectedSection,
+  setSelectedSection
+}) => {
   const {navigate} = useNavigation();
   const [open, setOpen] = useState(false);
 
@@ -106,7 +118,6 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           }}
           error={errors.address || error?.adresse_anime?.[0]}
         />
-
         <Input
           placeholder="Mail de contact*"
           autoCorrect={false}
@@ -124,7 +135,6 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
           }}
           error={errors.mailParent || error?.mailParent_anime?.[0]}
         />
-
         <Input
           placeholder="Numéro de contact*"
           autoCorrect={false}
@@ -141,6 +151,12 @@ const AddAnimeComponent = ({onSubmit, onChange, loading, error, errors}) => {
             onChange({name: 'numberParent', value});
           }}
           error={errors.numberParent || error?.numberParent_anime?.[0]}
+        />
+
+        <RadioButtonContainer
+          options={Object.keys(SECTIONS)}
+          selected={selectedSection}
+          setSelected={setSelectedSection}
         />
 
         <CustomButton
