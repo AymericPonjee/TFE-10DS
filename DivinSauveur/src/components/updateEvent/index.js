@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState } from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
@@ -164,6 +164,8 @@ const UpdateEventComponent = ({event: receivedEvent}) => {
           type="text"
           name="name"
           value={name}
+          autoCorrect={false}
+          placeholder="Nom de l'évènement*"
           onChangeText={value => {
             if (!value || value == '') {
               setName(undefined);
@@ -171,7 +173,6 @@ const UpdateEventComponent = ({event: receivedEvent}) => {
               setName(value);
             }
           }}
-          placeholder="Nom de l'évènement*"
           icon={
             <Ionicons
               name={'md-create-outline'}

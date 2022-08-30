@@ -2,11 +2,13 @@ export const CALENDAR = 'Évènements';
 export const CALENDARSTACK = 'Calendrier';
 
 export const ADDEVENT = 'Nouvel évènement';
-export const UPDATEEVENT = 'Modification';;
+export const UPDATEEVENT = 'Modification';
 export const DETAILSEVENT = "Détails";
 
 export const ANIMELIST = "Présence";
 export const ADDANIME = 'Nouvel animé';
+export const UPDATEANIME = 'Modification ';
+
 
 export const HOME = 'Home';
 

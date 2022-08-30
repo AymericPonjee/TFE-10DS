@@ -40,4 +40,24 @@ router.get("/list", (req, res) => {
     });
 });
 
+//route pour modifier un anime associé à l'id
+router.put("/:idAnime", (req, res) => {
+  console.log("req.body ->", req.body);
+  console.log("idAnime ->", req.params.idAnime);
+
+  Anime.findByIdAndUpdate(
+    req.params.idAnime,
+    {
+      ...req.body,
+    },
+    { new: true }
+  )
+    .then((res) => {
+      res.json(res);
+    })
+    .catch((err) => {
+      res.json({ message: err });
+    });
+});
+
 module.exports = router;

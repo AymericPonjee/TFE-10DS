@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AddAnimeComponent from '../../components/addAnime';
 
 const AddAnime = props => {
-  const {setOptions, navigate} = useNavigation();
+  const {setOptions, goBack} = useNavigation();
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
@@ -19,8 +19,6 @@ const AddAnime = props => {
    );
 
   const event = props.route?.params?.event;
-
-  console.log("add selectedSection =>", selectedSection);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -78,7 +76,7 @@ const AddAnime = props => {
     ) {
       createAnime({...form, section: selectedSection}).then(result => {
         if (result) {
-          navigation.navigate(ANIMELIST, { section: selectedSection});
+          goBack();
         }
       });
     }
@@ -97,7 +95,7 @@ const AddAnime = props => {
         fontSize: 26,
       },
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigate(ANIMELIST, {event, section: selectedSection})}>
+        <TouchableOpacity onPress={() => goBack()}>
           <Ionicons
             name="chevron-back"
             size={35}

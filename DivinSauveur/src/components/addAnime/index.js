@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/core';
+import React, {useState} from 'react';
 
 import {View, Text} from 'react-native';
 
@@ -9,7 +8,6 @@ import CustomButton from '../common/CustomButton';
 import Input from '../../components/common/Input';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import colors from '../../assets/themes/Colors';
 
 import {SECTIONS} from '../../constants/models';
 import {RadioButtonContainer} from '../common/RadioButtonContainer';
@@ -23,7 +21,6 @@ const AddAnimeComponent = ({
   selectedSection,
   setSelectedSection
 }) => {
-  const {navigate} = useNavigation();
   const [open, setOpen] = useState(false);
 
   return (

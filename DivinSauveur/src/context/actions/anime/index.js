@@ -39,3 +39,17 @@ export const listAnime = params => {
       console.log('[listAnime][err] => ', err);
     });
 };
+
+//http://localhost:3000/Animes/
+export const updateAnime = anime => {
+  return axiosInstance
+    .put(`/Animes/${anime._id}`, anime)
+    .then(res => {
+      if (res) {
+        return res;
+      }
+    })
+    .catch(err => {
+      console.log('[updateAnime][err] ->', err);
+    });
+};

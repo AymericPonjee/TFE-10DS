@@ -21,6 +21,7 @@ const CalenderComponent = ({
   events,
 }) => {
   const {navigate} = useNavigation();
+
   const setStatusFilter = selectedStatus => {
     if (combinedStatus[selectedStatus] == true) {
       combinedStatus[selectedStatus] = false;

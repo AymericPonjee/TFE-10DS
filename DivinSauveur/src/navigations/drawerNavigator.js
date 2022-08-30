@@ -18,6 +18,7 @@ import {
   DETAILSITEM,
   UPDATEEVENT,
   ADDANIME,
+  UPDATEANIME,
 } from '../constants/routeNames';
 
 import SideMenu from './sideMenu';
@@ -33,6 +34,7 @@ import List from '../screens/animeList';
 import DetailsItem from '../screens/detailsItem';
 import UpdateEvent from '../screens/updateEvent';
 import AddAnime from '../screens/addAnime';
+import UpdateAnime from '../screens/updateAnime';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -46,6 +48,7 @@ const CalendarStackView = () => {
       <Stack.Screen name={DETAILSEVENT} component={DetailsEvent} />
       <Stack.Screen name={ANIMELIST} component={List} />
       <Stack.Screen name={ADDANIME} component={AddAnime} />
+      <Stack.Screen name={UPDATEANIME} component={UpdateAnime} />
     </Stack.Navigator>
   );
 };

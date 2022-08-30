@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/core';
 
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import {deleteAnime, listAnime} from '../../context/actions/anime';
@@ -11,8 +12,10 @@ import Container from '../common/Container';
 import styles from './styles';
 import Colors from '../../assets/themes/Colors';
 import {useFocusEffect} from '@react-navigation/core';
+import {UPDATEANIME} from '../../constants/routeNames';
 
 const AnimeList = props => {
+  const {navigate} = useNavigation();
   const {section} = props;
   const [selectedAnime, setSelectedAnime] = useState();
   const [animes, setAnimes] = useState([]);
@@ -24,7 +27,7 @@ const AnimeList = props => {
       const unsubscribe = fetchData();
 
       return () => unsubscribe;
-    }, [animes]),
+    }, []),
   );
 
   const fetchData = () => {
@@ -49,6 +52,25 @@ const AnimeList = props => {
             deleteAnime(anime._id)
               .then(() => fetchData())
               .catch(err => console.log('err delete', err)),
+        },
+        {
+          text: 'Non',
+          styles: {
+            color: 'red',
+          },
+        },
+      ],
+    );
+  };
+
+  const handleUpdate = anime => {
+    Alert.alert(
+      'Attention',
+      'Voulez-vous modifier ' + anime.name + ' ' + anime.firstname + ' ?',
+      [
+        {
+          text: 'Oui',
+          onPress: () => navigate(UPDATEANIME, {anime, section}),
         },
         {
           text: 'Non',
@@ -92,6 +114,7 @@ const AnimeList = props => {
                 <Text style={styles.textModal}>Informations :</Text>
                 <Text style={styles.nameModal}> {selectedAnime.name}</Text>
                 <Text style={styles.firstnameModal}>
+                  {' '}
                   {selectedAnime.firstname}
                 </Text>
               </View>
@@ -142,7 +165,9 @@ const AnimeList = props => {
                 </TouchableOpacity>
               </View>
               <View style={styles.options}>
-                <TouchableOpacity style={styles.more}>
+                <TouchableOpacity
+                  style={styles.more}
+                  onPress={() => handleUpdate(el)}>
                   <MaterialCommunityIcons
                     name={'circle-edit-outline'}
                     size={30}
